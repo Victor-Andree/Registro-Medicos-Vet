@@ -1,39 +1,70 @@
 package webvet.v1.domain.aggregates.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import webvet.v1.domain.aggregates.constans.RolEnum;
 
-public class Usuario {
+import java.util.Collection;
+import java.util.List;
 
-    private int UsuarioId;
+public class Usuario implements UserDetails {
 
-    private String Username;
+    private int usuarioId;
 
-    private String Password;
+    private String username;
+
+    private String password;
 
     private RolEnum rol;
 
     public int getUsuarioId() {
-        return UsuarioId;
+        return usuarioId;
     }
 
     public void setUsuarioId(int usuarioId) {
-        UsuarioId = usuarioId;
+        this.usuarioId = usuarioId;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public RolEnum getRol() {

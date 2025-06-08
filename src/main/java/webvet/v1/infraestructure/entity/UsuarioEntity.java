@@ -19,7 +19,7 @@ public class UsuarioEntity {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private RolEnum rol;
 
     public int getId() {
