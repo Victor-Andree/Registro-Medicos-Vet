@@ -31,5 +31,11 @@ public class UsuarioAdapter implements UsuarioOut {
 
     }
 
+    @Override
+    public Optional<Usuario> findUsuarioByEmail(String email) {
+       Optional<UsuarioEntity> user = usuarioRepository.findByUsername(email);
+        return user.map(usuarioMapper::toUsuario);
+    }
+
 
 }

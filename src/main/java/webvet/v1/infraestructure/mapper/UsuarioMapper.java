@@ -15,7 +15,7 @@ import java.util.List;
 public interface UsuarioMapper {
 
     @Mappings({
-            @Mapping(source = "usuarioId" , target = "usuarioId"),
+            @Mapping(source = "id" , target = "usuarioId"),
             @Mapping(source = "username" , target = "username"),
             @Mapping(source = "password" , target = "password"),
             @Mapping(source = "rol" , target = "rol"),
