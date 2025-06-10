@@ -41,7 +41,21 @@ public class securityConfig {
         });
 
         httpSecurity.authorizeHttpRequests(auth -> {
-            auth.requestMatchers( "/api/v1/authentication/**").permitAll();
+            auth.requestMatchers( "/api/v1/authentication/**",
+                    // Rutas Swagger UI
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    // Rutas API Docs
+                    "/v3/api-docs",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs/swagger-config",
+                    // Recursos Swagger
+                    "/swagger-resources/**",
+                    "/swagger-resources",
+                    "/webjars/**",
+                    // Configuraciones
+                    "/configuration/ui",
+                    "/configuration/security").permitAll();
            auth.requestMatchers("/error").permitAll();
 
         });

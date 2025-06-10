@@ -3,7 +3,7 @@ package webvet.v1.domain.aggregates.model;
 public class Cliente {
 
 
-    private Integer Clienteid;
+    private Integer clienteId;
 
     private String nombre;
 
@@ -17,12 +17,12 @@ public class Cliente {
 
     private String ciudad;
 
-    public Integer getClienteid() {
-        return Clienteid;
+    public Integer getClienteId() {
+        return clienteId;
     }
 
-    public void setClienteid(Integer clienteid) {
-        Clienteid = clienteid;
+    public void setClienteId(Integer clienteId) {
+        this.clienteId = clienteId;
     }
 
     public String getNombre() {

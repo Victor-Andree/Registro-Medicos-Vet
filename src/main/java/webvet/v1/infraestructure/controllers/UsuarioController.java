@@ -1,6 +1,7 @@
 package webvet.v1.infraestructure.controllers;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/authentication/")
+@Tag(name = "Usuarios", description = "API para creacion de Usuarios")
 public class UsuarioController {
 
     private final UsuarioIn usuarioIn;

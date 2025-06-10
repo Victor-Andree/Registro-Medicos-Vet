@@ -2,6 +2,8 @@ package webvet.v1.infraestructure.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "Clientes")
@@ -29,6 +31,17 @@ public class ClienteEnitity {
 
     @Column(name = "ciudad", nullable = false)
     private String ciudad;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<MascotaEntity> mascotas;
+
+    public List<MascotaEntity> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<MascotaEntity> mascotas) {
+        this.mascotas = mascotas;
+    }
 
     public Integer getClienteId() {
         return ClienteId;

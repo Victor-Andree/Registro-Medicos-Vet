@@ -8,8 +8,6 @@ import java.util.Optional;
 public interface ClienteOut {
     Optional<Cliente> CrearCliente (Cliente cliente);
 
-    Optional<Cliente> ActualizarCliente (Cliente cliente);
-
     List<Cliente> ListarClientes ();
 
     Optional<Cliente> EncontrarCliente (Cliente cliente);

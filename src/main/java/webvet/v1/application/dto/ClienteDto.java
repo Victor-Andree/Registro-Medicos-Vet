@@ -1,5 +1,7 @@
 package webvet.v1.application.dto;
 
+import java.util.List;
+
 public class ClienteDto {
 
     private Integer clienteId;
@@ -15,6 +17,8 @@ public class ClienteDto {
     private String email;
 
     private String ciudad;
+
+    private List<MascotaDto> mascotas;
 
     public Integer getClienteId() {
         return clienteId;
@@ -70,5 +74,13 @@ public class ClienteDto {
 
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
+    }
+
+    public List<MascotaDto> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<MascotaDto> mascotas) {
+        this.mascotas = mascotas;
     }
 }
