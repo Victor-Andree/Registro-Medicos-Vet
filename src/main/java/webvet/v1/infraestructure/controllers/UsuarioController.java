@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import webvet.v1.application.dto.UsuarioDto;
-import webvet.v1.domain.ports.UsuarioIn;
+import webvet.v1.domain.ports.input.UsuarioIn;
 
 import java.util.Optional;
 

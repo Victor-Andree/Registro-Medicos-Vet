@@ -1,8 +1,7 @@
-package webvet.v1.domain.ports;
+package webvet.v1.domain.ports.input;
 
 import webvet.v1.application.dto.UsuarioDto;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioIn {

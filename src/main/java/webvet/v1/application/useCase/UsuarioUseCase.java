@@ -1,11 +1,10 @@
 package webvet.v1.application.useCase;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import webvet.v1.application.dto.UsuarioDto;
 import webvet.v1.domain.aggregates.model.Usuario;
-import webvet.v1.domain.ports.UsuarioIn;
+import webvet.v1.domain.ports.input.UsuarioIn;
 import webvet.v1.domain.ports.output.UsuarioOut;
 
 import java.util.Optional;
