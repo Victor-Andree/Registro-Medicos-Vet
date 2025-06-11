@@ -10,7 +10,6 @@ public class Mascota {
 
     private String especie;
 
-    private float peso;
 
     private Cliente cliente;
 
@@ -47,13 +46,6 @@ public class Mascota {
         this.raza = raza;
     }
 
-    public float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
 
     public Cliente getCliente() {
         return cliente;

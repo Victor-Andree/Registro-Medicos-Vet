@@ -14,6 +14,8 @@ public interface ClienteIn {
 
     Optional<Cliente> obtenerClientePorId(Long id);
 
+    Optional<ClienteDto> obtenerClientePorNombre(String nombre);
+
 
 
 

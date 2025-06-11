@@ -7,6 +7,7 @@ import webvet.v1.application.dto.ClienteDto;
 import webvet.v1.domain.aggregates.model.Cliente;
 import webvet.v1.domain.ports.input.ClienteIn;
 import webvet.v1.domain.ports.output.ClienteOut;
+import webvet.v1.infraestructure.entity.ClienteEnitity;
 import webvet.v1.infraestructure.mapper.ClienteMapper;
 
 import java.util.List;
@@ -48,6 +49,12 @@ public class ClienteUseCase implements ClienteIn {
 
         return clienteMapper.toClienteDto(clientes);
 
+    }
+
+    @Override
+    public Optional<ClienteDto> obtenerClientePorNombre(String nombre) {
+        return clienteOut.EncontrarCliente(nombre)
+                .map(clienteMapper::toClienteDtoFromEntity);
     }
 
 }

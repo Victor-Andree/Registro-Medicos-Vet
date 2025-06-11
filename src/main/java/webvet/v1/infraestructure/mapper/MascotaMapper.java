@@ -18,7 +18,6 @@ public interface MascotaMapper {
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "raza", target = "raza"),
             @Mapping(source = "especie", target = "especie"),
-            @Mapping(source = "peso", target = "peso"),
             @Mapping(source = "cliente", target = "cliente"),
     })
     Mascota toMascota(MascotaEntity mascotaEntity);
@@ -32,8 +31,7 @@ public interface MascotaMapper {
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "raza", target = "raza"),
             @Mapping(source = "especie", target = "especie"),
-            @Mapping(source = "peso", target = "peso"),
-            @Mapping(source = "cliente", target = "clienteDto")
+            @Mapping(source = "cliente.clienteId", target = "clienteId")
     })
 
     MascotaDto toMascotaDto(Mascota mascota);
@@ -45,8 +43,7 @@ public interface MascotaMapper {
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "raza", target = "raza"),
             @Mapping(source = "especie", target = "especie"),
-            @Mapping(source = "peso", target = "peso"),
-            @Mapping(source = "clienteDto", target = "cliente")
+            @Mapping(source = "clienteId", target = "cliente.clienteId")
     })
 
     Mascota toMascotaFromDto(MascotaDto mascotaDto);
@@ -57,13 +54,21 @@ public interface MascotaMapper {
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "raza", target = "raza"),
             @Mapping(source = "especie", target = "especie"),
-            @Mapping(source = "peso", target = "peso"),
-            @Mapping(source = "cliente", target = "clienteId"),
+            @Mapping(source = "cliente.clienteId", target = "clienteId")
     })
 
     List<MascotaDto> toMascotaDto(List<Mascota> mascotas);
 
 
+    @Mappings({
+            @Mapping(source = "mascotaId", target = "mascotaId"),
+            @Mapping(source = "nombre", target = "nombre"),
+            @Mapping(source = "raza", target = "raza"),
+            @Mapping(source = "especie", target = "especie"),
+            @Mapping(source = "cliente.clienteId", target = "clienteId")
+    })
+
+    MascotaDto toMascotaDtoFromEntity(MascotaEntity mascotaEntity);
 
 }
 

@@ -2,6 +2,7 @@ package webvet.v1.infraestructure.controllers;
 
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,17 +33,25 @@ public class ClienteController {
 
 
     @PostMapping("/crearCliente")
-    public ResponseEntity<?> crearCliente(@RequestBody ClienteDto clienteDto) {
-        Optional<ClienteDto> clienteCreado = clientesIn.crearCliente(clienteDto);
+    public ResponseEntity<ResponseBase<ClienteDto>> crearCliente(@RequestBody @Valid ClienteDto clienteDto) {
+        try {
+            Optional<ClienteDto> clienteCreado = clientesIn.crearCliente(clienteDto);
 
-        if (clienteCreado.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(Map.of("mensaje", "Cliente creado correctamente", "cliente", clienteCreado.get()));
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of("mensaje", "No se pudo crear el cliente"));
+            if (clienteCreado.isPresent()) {
+                return ResponseEntity.status(HttpStatus.CREATED)
+                        .body(new ResponseBase<>(201, "Cliente creado correctamente", clienteCreado.get()));
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new ResponseBase<>(400, "No se pudo crear el cliente", null));
+            }
+
+        } catch (Exception e) {
+            // Loguear el error si tienes logger
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseBase<>(500, "Ocurrió un error al crear el cliente", null));
         }
     }
+
 
     @GetMapping("/listarClientes")
     public ResponseEntity<ResponseBase<List<ClienteDto>>>obtenerClientes(){
@@ -65,6 +74,14 @@ public class ClienteController {
                 .map(dto -> ResponseEntity.ok(new ResponseBase<>(200, "Cliente encontrado", dto)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ResponseBase<>(404, "Cliente no encontrado", null)));
+    }
+
+    @GetMapping("/cliente/nombre/{nombre}")
+    public ResponseEntity<ResponseBase<ClienteDto>> obtenerClientePorNombre(@PathVariable String nombre) {
+        return clientesIn.obtenerClientePorNombre(nombre)
+                .map(clienteDto -> ResponseEntity.ok(new ResponseBase<>(200, "Cliente encontrado", clienteDto)))
+                        .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                .body(new ResponseBase<>(404, "Cliente con nombre"+ nombre + "no encontrado", null )));
     }
 
 

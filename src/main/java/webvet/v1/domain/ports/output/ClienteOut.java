@@ -1,6 +1,7 @@
 package webvet.v1.domain.ports.output;
 
 import webvet.v1.domain.aggregates.model.Cliente;
+import webvet.v1.infraestructure.entity.ClienteEnitity;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface ClienteOut {
 
     List<Cliente> ListarClientes ();
 
-    Optional<String> EncontrarCliente (String nombre);
+    Optional<ClienteEnitity> EncontrarCliente (String nombre);
 
     Optional<Cliente> EncontrarId (Long id);
 

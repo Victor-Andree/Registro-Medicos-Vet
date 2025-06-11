@@ -44,10 +44,9 @@ public class ClienteAdapter implements ClienteOut {
    }
 
    @Override
-    public Optional<String> EncontrarCliente(String nombre){
+    public Optional<ClienteEnitity> EncontrarCliente(String nombre){
 
-       return clienteRepository.findByNombre(nombre)
-               .map(clienteEnitity -> clienteEnitity.getNombre());
+       return clienteRepository.findByNombre(nombre);
 
    }
 

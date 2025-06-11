@@ -12,9 +12,7 @@ public class MascotaDto {
 
     private String especie;
 
-    private float peso;
-
-    private ClienteDto clienteDto;
+    private Long clienteId;
 
     public Long getMascotaId() {
         return mascotaId;
@@ -48,19 +46,11 @@ public class MascotaDto {
         this.especie = especie;
     }
 
-    public float getPeso() {
-        return peso;
+    public Long getClienteId() {
+        return clienteId;
     }
 
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    public ClienteDto getClienteDto() {
-        return clienteDto;
-    }
-
-    public void setClienteDto(ClienteDto clienteDto) {
-        this.clienteDto = clienteDto;
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 }

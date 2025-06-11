@@ -21,9 +21,6 @@ public class MascotaEntity {
     @Column(name = "especie", nullable = false)
     private String especie;
 
-    @Column(name = "peso", nullable = false)
-    private float peso;
-
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteEnitity cliente;
@@ -50,14 +47,6 @@ public class MascotaEntity {
 
     public void setRaza(String raza) {
         this.raza = raza;
-    }
-
-    public float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
     }
 
     public ClienteEnitity getCliente() {

@@ -62,6 +62,18 @@ public interface ClienteMapper {
     })
     List<ClienteDto> toClienteDto(List<Cliente> clientes);
 
+    @Mappings({
+            @Mapping(source = "clienteId", target = "clienteId"),
+            @Mapping(source = "nombre", target = "nombre"),
+            @Mapping(source = "apellido", target = "apellido"),
+            @Mapping(source = "email", target = "email"),
+            @Mapping(source = "telefono", target = "telefono"),
+            @Mapping(source = "direccion", target = "direccion"),
+            @Mapping(source = "ciudad", target = "ciudad"),
+    })
+    ClienteDto toClienteDtoFromEntity(ClienteEnitity clienteEnitity);
+
+
 }
 
 
