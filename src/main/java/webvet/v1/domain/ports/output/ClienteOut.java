@@ -10,7 +10,9 @@ public interface ClienteOut {
 
     List<Cliente> ListarClientes ();
 
-    Optional<Cliente> EncontrarCliente (Cliente cliente);
+    Optional<String> EncontrarCliente (String nombre);
+
+    Optional<Cliente> EncontrarId (Long id);
 
 
 

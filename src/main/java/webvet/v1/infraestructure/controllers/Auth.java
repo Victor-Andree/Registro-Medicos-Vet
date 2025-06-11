@@ -29,12 +29,4 @@ public class Auth {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/saludo/spring")
-    public String preuba() {
-
-
-
-        return "Hola spring";
-    }
-
 }

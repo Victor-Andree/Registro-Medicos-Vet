@@ -2,7 +2,7 @@ package webvet.v1.domain.aggregates.model;
 
 public class Mascota {
 
-    private Integer mascotaId;
+    private Long mascotaId;
 
     private String nombre;
 
@@ -23,11 +23,11 @@ public class Mascota {
         this.especie = especie;
     }
 
-    public Integer getMascotaId() {
+    public Long getMascotaId() {
         return mascotaId;
     }
 
-    public void setMascotaId(Integer mascotaId) {
+    public void setMascotaId(Long mascotaId) {
         this.mascotaId = mascotaId;
     }
 

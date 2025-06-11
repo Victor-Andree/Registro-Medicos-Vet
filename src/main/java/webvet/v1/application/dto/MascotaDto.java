@@ -4,7 +4,7 @@ import webvet.v1.domain.aggregates.model.Cliente;
 
 public class MascotaDto {
 
-    private Integer mascotaId;
+    private Long mascotaId;
 
     private String nombre;
 
@@ -16,11 +16,11 @@ public class MascotaDto {
 
     private ClienteDto clienteDto;
 
-    public Integer getMascotaId() {
+    public Long getMascotaId() {
         return mascotaId;
     }
 
-    public void setMascotaId(Integer mascotaId) {
+    public void setMascotaId(Long mascotaId) {
         this.mascotaId = mascotaId;
     }
 

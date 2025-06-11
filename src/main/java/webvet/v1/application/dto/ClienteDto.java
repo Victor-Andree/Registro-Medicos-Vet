@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ClienteDto {
 
-    private Integer clienteId;
+    private Long clienteId;
 
     private String nombre;
 
@@ -20,11 +20,11 @@ public class ClienteDto {
 
     private List<MascotaDto> mascotas;
 
-    public Integer getClienteId() {
+    public Long getClienteId() {
         return clienteId;
     }
 
-    public void setClienteId(Integer clienteId) {
+    public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
     }
 

@@ -12,7 +12,7 @@ public class ClienteEnitity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id")
-    private Integer ClienteId;
+    private Long ClienteId;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -43,11 +43,11 @@ public class ClienteEnitity {
         this.mascotas = mascotas;
     }
 
-    public Integer getClienteId() {
+    public Long getClienteId() {
         return ClienteId;
     }
 
-    public void setClienteId(Integer clienteId) {
+    public void setClienteId(Long clienteId) {
         ClienteId = clienteId;
     }
 

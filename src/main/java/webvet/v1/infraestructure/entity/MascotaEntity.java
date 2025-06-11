@@ -10,7 +10,7 @@ public class MascotaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mascota_id")
-    private int mascotaId;
+    private Long mascotaId;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -28,11 +28,11 @@ public class MascotaEntity {
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteEnitity cliente;
 
-    public int getMascotaId() {
+    public Long getMascotaId() {
         return mascotaId;
     }
 
-    public void setMascotaId(int mascotaId) {
+    public void setMascotaId(Long mascotaId) {
         this.mascotaId = mascotaId;
     }
 

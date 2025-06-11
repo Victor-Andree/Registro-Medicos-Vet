@@ -8,11 +8,12 @@ import java.util.Optional;
 
 public interface ClienteIn {
 
-    Optional<Cliente> CrearCliente(ClienteDto clienteDto);
+    Optional<ClienteDto> crearCliente(ClienteDto clienteDto);
 
-    List<ClienteDto>  listarClientes();
+    List<ClienteDto> obtenerClientes();
 
-    Optional<ClienteDto> buscarClientePorId(Integer id);
+    Cliente obtenerClientePorId(Long id);
+
 
 
 
