@@ -3,6 +3,7 @@ package webvet.v1.infraestructure.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import webvet.v1.domain.aggregates.constans.RolEnum;
 import webvet.v1.infraestructure.security.filters.JwtTokenValidatorFilter;
 import webvet.v1.infraestructure.services.UsuarioDetailsService;
 
@@ -41,22 +43,12 @@ public class securityConfig {
         });
 
         httpSecurity.authorizeHttpRequests(auth -> {
-            auth.requestMatchers( "/api/v1/authentication/**",
-                    // Rutas Swagger UI
-                    "/swagger-ui.html",
-                    "/swagger-ui/**",
-                    // Rutas API Docs
-                    "/v3/api-docs",
-                    "/v3/api-docs/**",
-                    "/v3/api-docs/swagger-config",
-                    // Recursos Swagger
-                    "/swagger-resources/**",
-                    "/swagger-resources",
-                    "/webjars/**",
-                    // Configuraciones
-                    "/configuration/ui",
-                    "/configuration/security").permitAll();
-           auth.requestMatchers("/error").permitAll();
+            auth.requestMatchers( "/api/v1/authentication/**").permitAll();
+           auth.requestMatchers("/error").permitAll()
+                   .requestMatchers("/api/v1/asistente/**").hasAnyAuthority(RolEnum.ASISTENTE.name())
+                   .requestMatchers("/api/v1/vet/**").hasAnyAuthority(RolEnum.VET.name())
+                   .requestMatchers("/api/v1/admin/**").hasAnyAuthority(RolEnum.ADMIN.name())
+                   .requestMatchers(  "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
 
         });
 

@@ -34,10 +34,8 @@ public class ClienteUseCase implements ClienteIn {
 
 
     @Override
-    public Cliente  obtenerClientePorId(Long id) {
-        return clienteOut.EncontrarId(id)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontro el Id" + id));
-
+    public Optional<Cliente> obtenerClientePorId(Long id) {
+        return clienteOut.EncontrarId(id);
     }
 
     @Override

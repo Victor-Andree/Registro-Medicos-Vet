@@ -18,8 +18,6 @@ public class ClienteDto {
 
     private String ciudad;
 
-    private List<MascotaDto> mascotas;
-
     public Long getClienteId() {
         return clienteId;
     }
@@ -76,11 +74,5 @@ public class ClienteDto {
         this.ciudad = ciudad;
     }
 
-    public List<MascotaDto> getMascotas() {
-        return mascotas;
-    }
 
-    public void setMascotas(List<MascotaDto> mascotas) {
-        this.mascotas = mascotas;
-    }
 }

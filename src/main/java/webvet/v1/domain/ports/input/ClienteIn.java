@@ -12,7 +12,7 @@ public interface ClienteIn {
 
     List<ClienteDto> obtenerClientes();
 
-    Cliente obtenerClientePorId(Long id);
+    Optional<Cliente> obtenerClientePorId(Long id);
 
 
 
