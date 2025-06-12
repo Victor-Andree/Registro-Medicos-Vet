@@ -8,9 +8,11 @@ import webvet.v1.domain.aggregates.model.Mascota;
 import webvet.v1.domain.ports.input.MascotaIn;
 import webvet.v1.domain.ports.output.MascotaOut;
 import webvet.v1.infraestructure.mapper.MascotaMapper;
+import webvet.v1.infraestructure.repository.MascotaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MascotaUseCase implements MascotaIn {
@@ -18,11 +20,13 @@ public class MascotaUseCase implements MascotaIn {
     private final MascotaOut mascotaOut;
 
     private final MascotaMapper mascotaMapper;
+    private final MascotaRepository mascotaRepository;
 
 
-    public MascotaUseCase(MascotaOut mascotaOut, MascotaMapper mascotaMapper) {
+    public MascotaUseCase(MascotaOut mascotaOut, MascotaMapper mascotaMapper, MascotaRepository mascotaRepository) {
         this.mascotaOut = mascotaOut;
         this.mascotaMapper = mascotaMapper;
+        this.mascotaRepository = mascotaRepository;
     }
 
     @Override
@@ -56,6 +60,25 @@ public class MascotaUseCase implements MascotaIn {
     public Optional<MascotaDto> findMascotabyname (String nombre){
         return mascotaOut.findBynme(nombre)
                 .map(mascotaMapper::toMascotaDtoFromEntity);
+    }
+
+    @Override
+    public Optional<MascotaDto> updateMascota (MascotaDto mascotaDto){
+
+        Mascota mascota = mascotaMapper.toMascotaFromDto(mascotaDto);
+
+        Optional<Mascota> mascotaActualizada = mascotaOut.updateMascota(mascota);
+
+        return mascotaActualizada.map(mascotaMapper::toMascotaDto);
+
+    }
+
+    @Override
+    public List<MascotaDto> findMascotaByCliente(Long clienteId) {
+        List<Mascota> mascotas = mascotaOut.findMascotasByClienteId(clienteId);
+        return mascotas.stream()
+                .map(mascotaMapper::toMascotaDto)
+                .collect(Collectors.toList());
     }
 
 

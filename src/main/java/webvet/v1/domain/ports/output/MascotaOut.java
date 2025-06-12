@@ -17,5 +17,9 @@ public interface MascotaOut {
 
     Optional<Mascota> findByIdMascota (Long id);
 
+    Optional<Mascota> updateMascota(Mascota mascota);
+
+    List<Mascota> findMascotasByClienteId (Long clienteId);
+
 
 }

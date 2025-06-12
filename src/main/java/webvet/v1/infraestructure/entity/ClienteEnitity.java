@@ -12,7 +12,7 @@ public class ClienteEnitity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id")
-    private Long ClienteId;
+    private Long clienteId;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -44,11 +44,11 @@ public class ClienteEnitity {
     }
 
     public Long getClienteId() {
-        return ClienteId;
+        return clienteId;
     }
 
     public void setClienteId(Long clienteId) {
-        ClienteId = clienteId;
+        this.clienteId = clienteId;
     }
 
     public String getNombre() {

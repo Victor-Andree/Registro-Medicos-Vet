@@ -14,6 +14,7 @@ import webvet.v1.infraestructure.mapper.MascotaMapper;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -81,6 +82,34 @@ public class MascotaController {
                 .map(mascotaDto -> ResponseEntity.ok(new ResponseBase<>(200, "Mascota encontrado", mascotaDto)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ResponseBase<>(404, "Mliente con nombre"+ nombre + "no encontrado", null )));
+    }
+
+    @PutMapping("/mascota/{id}")
+    public ResponseEntity<ResponseBase<MascotaDto>> actualizarMascota(@RequestBody MascotaDto mascotaDto) {
+        if (mascotaDto.getMascotaId() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseBase<>(400, "Debe proporcionar el ID de la mascota para actualizar", null));
+        }
+
+        return mascotaIn.updateMascota(mascotaDto)
+                .map(mascotaActualizada -> new ResponseEntity<>(
+                        new ResponseBase<>(200, "Mascota actualizada correctamente", mascotaActualizada),
+                        HttpStatus.OK
+                ))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseBase<>(404, "No se encontró la mascota con el ID proporcionado", null)));
+    }
+
+    @GetMapping("/mascota/cliente/{clienteId}")
+    public ResponseEntity<ResponseBase<List<MascotaDto>>> obtenerMascotasPorCliente(@PathVariable Long clienteId) {
+        List<MascotaDto> mascotas = mascotaIn.findMascotaByCliente(clienteId);
+
+        if (mascotas.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "El cliente no tiene mascotas registradas", Collections.emptyList()));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Mascotas del cliente obtenidas correctamente", mascotas));
     }
 
 

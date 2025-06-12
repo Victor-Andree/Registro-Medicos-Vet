@@ -16,6 +16,11 @@ public interface MascotaIn {
 
     Optional<MascotaDto> findMascotabyname (String nombre);
 
+    Optional<MascotaDto> updateMascota(MascotaDto mascotaDto);
+
+    List<MascotaDto> findMascotaByCliente(Long clienteId);
+
+
 
 
 
