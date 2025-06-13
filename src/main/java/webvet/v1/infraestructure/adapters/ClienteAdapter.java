@@ -56,6 +56,23 @@ public class ClienteAdapter implements ClienteOut {
                .map(clienteMapper::toCliente);
    }
 
+   @Override
+    public Optional<Cliente> updateCliente(Cliente cliente){
+       return clienteRepository.findById(cliente.getClienteId())
+               .map(entityExistente ->{
+                   entityExistente.setNombre(cliente.getNombre());
+                   entityExistente.setApellido(cliente.getApellido());
+                   entityExistente.setEmail(cliente.getEmail());
+                   entityExistente.setTelefono(cliente.getTelefono());
+                   entityExistente.setDireccion(cliente.getDireccion());
+                   entityExistente.setCiudad(cliente.getCiudad());
+
+                   ClienteEnitity updateEntity = clienteRepository.save(entityExistente);
+                   return clienteMapper.toCliente(updateEntity);
+
+               });
+   }
+
 
 
 

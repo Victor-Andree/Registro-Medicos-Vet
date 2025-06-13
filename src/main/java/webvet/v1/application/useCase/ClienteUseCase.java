@@ -57,6 +57,18 @@ public class ClienteUseCase implements ClienteIn {
                 .map(clienteMapper::toClienteDtoFromEntity);
     }
 
+    @Override
+    public Optional<ClienteDto>updateCliente(ClienteDto clienteDto) {
+
+        Cliente cliente = clienteMapper.toClienteFromDto(clienteDto);
+
+        Optional<Cliente> clienteActualizado = clienteOut.updateCliente(cliente);
+
+        return clienteActualizado.map(clienteMapper::toClienteDto);
+
+
+    }
+
 }
 
 

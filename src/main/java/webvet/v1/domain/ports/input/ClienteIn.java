@@ -16,6 +16,8 @@ public interface ClienteIn {
 
     Optional<ClienteDto> obtenerClientePorNombre(String nombre);
 
+    Optional<ClienteDto> updateCliente(ClienteDto clienteDto);
+
 
 
 

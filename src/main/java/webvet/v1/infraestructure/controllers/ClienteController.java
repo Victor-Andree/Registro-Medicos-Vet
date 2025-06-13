@@ -8,11 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webvet.v1.application.dto.ClienteDto;
 import webvet.v1.application.dto.response.ResponseBase;
-import webvet.v1.domain.aggregates.model.Cliente;
 import webvet.v1.domain.ports.input.ClienteIn;
-import webvet.v1.infraestructure.entity.ClienteEnitity;
 import webvet.v1.infraestructure.mapper.ClienteMapper;
-import webvet.v1.infraestructure.repository.ClienteRepository;
 
 import java.util.*;
 
@@ -82,6 +79,25 @@ public class ClienteController {
                 .map(clienteDto -> ResponseEntity.ok(new ResponseBase<>(200, "Cliente encontrado", clienteDto)))
                         .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
                                 .body(new ResponseBase<>(404, "Cliente con nombre"+ nombre + "no encontrado", null )));
+    }
+
+    @PutMapping("/cliente/editar/{id}")
+    public ResponseEntity<ResponseBase<ClienteDto>> actualizarCliente(@PathVariable Long id, @RequestBody @Valid ClienteDto clienteDto) {
+
+        if (clienteDto.getClienteId() ==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseBase<>(400, "Debe proporcionar el ID del cliente para actualizar", null));
+        }
+
+        return clientesIn.updateCliente(clienteDto)
+                .map(clienteActualizado -> new ResponseEntity<>(
+                        new ResponseBase<>(200, "Cliente actualizado correctamente", clienteActualizado),
+                        HttpStatus.OK
+                ))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseBase<>(404, "No se encontró al cliente con el ID proporcionado", null)));
+
+
     }
 
 

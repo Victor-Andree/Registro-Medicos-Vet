@@ -25,6 +25,10 @@ public class MascotaEntity {
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteEnitity cliente;
 
+    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL)
+    private TriajeEntity triaje;
+
+
     public Long getMascotaId() {
         return mascotaId;
     }
@@ -63,5 +67,13 @@ public class MascotaEntity {
 
     public void setEspecie(String especie) {
         this.especie = especie;
+    }
+
+    public TriajeEntity getTriaje() {
+        return triaje;
+    }
+
+    public void setTriaje(TriajeEntity triaje) {
+        this.triaje = triaje;
     }
 }
