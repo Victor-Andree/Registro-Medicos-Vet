@@ -9,13 +9,12 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import webvet.v1.infraestructure.services.JwtService;
+import webvet.v1.infraestructure.services.TokenBlacklistService;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -25,11 +24,16 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final TokenBlacklistService tokenBlacklistService;
 
-    public JwtTokenValidatorFilter(JwtService jwtService, UserDetailsService userDetailsService) {
+
+    public JwtTokenValidatorFilter(JwtService jwtService, UserDetailsService userDetailsService, TokenBlacklistService tokenBlacklistService) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
+
+
 
 
     @Override
@@ -43,9 +47,18 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
             return;
+
+
         }
 
         jwt = token.substring(7);
+
+        // Verifica si el token está en blacklist
+        if (tokenBlacklistService.isTokenBlacklisted(jwt)) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Token inválido. La sesión ya fue cerrada.");
+            return;
+        }
         username = jwtService.extractUserName(jwt);
         System.out.println("En jwt filter");
         if(Objects.nonNull(username) && SecurityContextHolder.getContext().getAuthentication()==null) {
@@ -71,3 +84,5 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
     }
 }
+
+

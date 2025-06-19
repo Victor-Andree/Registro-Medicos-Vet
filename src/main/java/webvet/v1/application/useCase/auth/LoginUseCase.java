@@ -31,7 +31,7 @@ public class LoginUseCase implements LoginUsuarioOut {
     @Override
     public AuthenticationResponse login(LoginRequest loginRequest) {
 
-        Usuario userExist = usuarioOut.findUsuarioByEmail(loginRequest.getUsername())
+        Usuario userExist = usuarioOut.findUsuarioByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         userExist.setPassword(loginRequest.getPassword());

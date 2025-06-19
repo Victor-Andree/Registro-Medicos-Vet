@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface UsuarioOut {
   Optional<Usuario> crearUsuario(Usuario usuario);
-  Optional<Usuario> findUsuarioByEmail(String email);
+  Optional<Usuario> findUsuarioByUsername(String username);
 }
