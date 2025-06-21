@@ -1,8 +1,13 @@
 package webvet.v1.application.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginRequest {
+
+    @NotBlank(message = "el username no puede estar vacio")
     private String username;
 
+    @NotBlank(message = "ingresa una contraseña valida")
     private String password;
 
     public LoginRequest(String username, String password) {
