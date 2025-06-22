@@ -27,7 +27,7 @@ public class UsuarioUseCase implements UsuarioIn {
     @Override
     public Optional<UsuarioDto> CrearUsuario(UsuarioDto usuarioDto){
 
-        Optional<Usuario> usuarioExistente = usuarioOut.findUsuarioByEmail(usuarioDto.getUsername());
+        Optional<Usuario> usuarioExistente = usuarioOut.findUsuarioByUsername(usuarioDto.getUsername());
 
         if (usuarioExistente.isPresent()) {
             return Optional.empty();
@@ -51,5 +51,19 @@ public class UsuarioUseCase implements UsuarioIn {
         });
 
     }
+
+    @Override
+    public Optional<UsuarioDto> findUsuarioByUsername(String username) {
+        Optional<Usuario> usuarioExistente = usuarioOut.findUsuarioByUsername(username);
+
+        return usuarioExistente.map(usuario -> {
+            UsuarioDto dto = new UsuarioDto();
+            dto.setUsuarioId(usuario.getUsuarioId());
+            dto.setUsername(usuario.getUsername());
+            dto.setRol(usuario.getRol());
+            return dto;
+        });
+    }
+
 
 }

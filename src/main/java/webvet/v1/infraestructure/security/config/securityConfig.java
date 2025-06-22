@@ -16,12 +16,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import webvet.v1.domain.aggregates.constans.RolEnum;
 import webvet.v1.infraestructure.security.filters.JwtTokenValidatorFilter;
+import webvet.v1.infraestructure.services.CustomAuthenticationEntryPoint;
 
 import java.util.Arrays;
 
@@ -30,11 +32,16 @@ import java.util.Arrays;
 public class securityConfig {
     private final JwtTokenValidatorFilter jwtTokenValidatorFilter;
     private final UserDetailsService userDetailsService;
+    private final AccessDeniedHandler accessDeniedHandler;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
 
 
-    public securityConfig(JwtTokenValidatorFilter jwtTokenValidatorFilter, UserDetailsService userDetailsService) {
+    public securityConfig(JwtTokenValidatorFilter jwtTokenValidatorFilter, UserDetailsService userDetailsService, AccessDeniedHandler accessDeniedHandler, CustomAuthenticationEntryPoint authenticationEntryPoint) {
         this.jwtTokenValidatorFilter = jwtTokenValidatorFilter;
         this.userDetailsService = userDetailsService;
+
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
     @Bean
@@ -54,6 +61,13 @@ public class securityConfig {
                    .requestMatchers(  "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
 
         });
+
+        httpSecurity.exceptionHandling(exception -> exception
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint)
+        );
+
+
 
         httpSecurity.addFilterBefore(jwtTokenValidatorFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.authenticationProvider(authenticationProvider());

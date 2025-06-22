@@ -32,8 +32,8 @@ public class UsuarioAdapter implements UsuarioOut {
     }
 
     @Override
-    public Optional<Usuario> findUsuarioByEmail(String email) {
-       Optional<UsuarioEntity> user = usuarioRepository.findByUsername(email);
+    public Optional<Usuario> findUsuarioByUsername(String username) {
+       Optional<UsuarioEntity> user = usuarioRepository.findByUsername(username);
         return user.map(usuarioMapper::toUsuario);
     }
 

@@ -4,13 +4,12 @@ package webvet.v1.infraestructure.controllers;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import webvet.v1.application.dto.UsuarioDto;
 import webvet.v1.domain.ports.input.UsuarioIn;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -26,15 +25,33 @@ public class UsuarioController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<UsuarioDto> registrarUsuario(@RequestBody UsuarioDto usuarioDto) {
+    public ResponseEntity<?> registrarUsuario(@RequestBody UsuarioDto usuarioDto) {
         Optional<UsuarioDto> usuarioRegistrado = usuarioIn.CrearUsuario(usuarioDto);
 
         if (usuarioRegistrado.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRegistrado.get());
         } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // sin body
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("mensaje", "Ya existe un usuario con esos datos.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
         }
     }
+
+
+
+    @GetMapping("/usuario/{username}")
+    public ResponseEntity<UsuarioDto> obtenerUsuarioPorUsername(@PathVariable String username) {
+        Optional<UsuarioDto> usuarioDto = usuarioIn.findUsuarioByUsername(username);
+
+        if (usuarioDto.isPresent()) {
+            return ResponseEntity.ok(usuarioDto.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
+
 
 
 
