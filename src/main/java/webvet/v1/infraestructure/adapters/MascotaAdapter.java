@@ -8,6 +8,7 @@ import webvet.v1.infraestructure.entity.MascotaEntity;
 import webvet.v1.infraestructure.mapper.MascotaMapper;
 import webvet.v1.infraestructure.repository.ClienteRepository;
 import webvet.v1.infraestructure.repository.MascotaRepository;
+import webvet.v1.infraestructure.repository.RazaRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +22,13 @@ public class MascotaAdapter implements MascotaOut {
 
     private final MascotaRepository mascotaRepository;
     private final ClienteRepository clienteRepository;
+    private final RazaRepository razaRepository;
 
-    public MascotaAdapter(MascotaMapper mascotaMapper, MascotaRepository mascotaRepository, ClienteRepository clienteRepository) {
+    public MascotaAdapter(MascotaMapper mascotaMapper, MascotaRepository mascotaRepository, ClienteRepository clienteRepository, RazaRepository razaRepository) {
         this.mascotaMapper = mascotaMapper;
         this.mascotaRepository = mascotaRepository;
         this.clienteRepository = clienteRepository;
+        this.razaRepository = razaRepository;
     }
 
 
@@ -66,12 +69,16 @@ public class MascotaAdapter implements MascotaOut {
         return mascotaRepository.findById(mascota.getMascotaId())
                 .map(entityExistente -> {
                     entityExistente.setNombre(mascota.getNombre());
-                    entityExistente.setRaza(mascota.getRaza());
-                    entityExistente.setEspecie(mascota.getEspecie());
 
                     if (mascota.getCliente() != null){
                         clienteRepository.findById(mascota.getCliente().getClienteId())
                                 .ifPresent(entityExistente::setCliente);
+                    }
+
+                    if (mascota.getRaza() != null){
+                        razaRepository.findById(mascota.getRaza().getRazaId())
+                                .ifPresent(entityExistente::setRaza);
+
                     }
 
                     MascotaEntity updateEntity = mascotaRepository.save(entityExistente);

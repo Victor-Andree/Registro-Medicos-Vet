@@ -6,21 +6,13 @@ public class Mascota {
 
     private String nombre;
 
-    private String raza;
+    private int edad;
 
-    private String especie;
-
+    private Raza raza;
 
     private Cliente cliente;
 
 
-    public String getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(String especie) {
-        this.especie = especie;
-    }
 
     public Long getMascotaId() {
         return mascotaId;
@@ -38,14 +30,13 @@ public class Mascota {
         this.nombre = nombre;
     }
 
-    public String getRaza() {
-        return raza;
-    }
+    public int getEdad() {return edad;}
 
-    public void setRaza(String raza) {
-        this.raza = raza;
-    }
+    public void setEdad(int edad) {this.edad = edad;}
 
+    public Raza getRaza() {return raza;}
+
+    public void setRaza(Raza raza) {this.raza = raza;}
 
     public Cliente getCliente() {
         return cliente;

@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class MascotaUseCase implements MascotaIn {
 
     private final MascotaOut mascotaOut;
-
     private final MascotaMapper mascotaMapper;
     private final MascotaRepository mascotaRepository;
 

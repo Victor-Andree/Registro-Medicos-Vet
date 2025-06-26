@@ -15,15 +15,16 @@ public class MascotaEntity {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "raza", nullable = false)
-    private String raza;
-
-    @Column(name = "especie", nullable = false)
-    private String especie;
+    @Column(name = "edad", nullable = false)
+    private Integer edad;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteEnitity cliente;
+    private ClienteEntity cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "raza_id", nullable = false)
+    private RazaEntity raza;
 
     @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL)
     private TriajeEntity triaje;
@@ -45,28 +46,16 @@ public class MascotaEntity {
         this.nombre = nombre;
     }
 
-    public String getRaza() {
-        return raza;
-    }
+    public Integer getEdad() {return edad;}
 
-    public void setRaza(String raza) {
-        this.raza = raza;
-    }
+    public void setEdad(Integer edad) {this.edad = edad;}
 
-    public ClienteEnitity getCliente() {
+    public ClienteEntity getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteEnitity cliente) {
+    public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
-    }
-
-    public String getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(String especie) {
-        this.especie = especie;
     }
 
     public TriajeEntity getTriaje() {
@@ -76,4 +65,8 @@ public class MascotaEntity {
     public void setTriaje(TriajeEntity triaje) {
         this.triaje = triaje;
     }
+
+    public RazaEntity getRaza() {return raza;}
+
+    public void setRaza(RazaEntity raza) {this.raza = raza;}
 }

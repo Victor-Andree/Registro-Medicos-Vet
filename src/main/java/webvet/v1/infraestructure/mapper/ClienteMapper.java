@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import webvet.v1.application.dto.ClienteDto;
 import webvet.v1.domain.aggregates.model.Cliente;
-import webvet.v1.infraestructure.entity.ClienteEnitity;
+import webvet.v1.infraestructure.entity.ClienteEntity;
 
 import java.util.List;
 
@@ -24,10 +24,10 @@ public interface ClienteMapper {
             @Mapping(source = "ciudad", target = "ciudad"),
     })
 
-    Cliente toCliente(ClienteEnitity clienteEnitity);
+    Cliente toCliente(ClienteEntity clienteEntity);
 
     @InheritInverseConfiguration
-    ClienteEnitity toClienteEnitity(Cliente cliente);
+    ClienteEntity toClienteEntity(Cliente cliente);
 
     @Mappings({
             @Mapping(source = "clienteId", target = "clienteId"),
@@ -71,7 +71,7 @@ public interface ClienteMapper {
             @Mapping(source = "direccion", target = "direccion"),
             @Mapping(source = "ciudad", target = "ciudad"),
     })
-    ClienteDto toClienteDtoFromEntity(ClienteEnitity clienteEnitity);
+    ClienteDto toClienteDtoFromEntity(ClienteEntity clienteEntity);
 
 
 }

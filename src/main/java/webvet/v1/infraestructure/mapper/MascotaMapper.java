@@ -17,7 +17,6 @@ public interface MascotaMapper {
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "raza", target = "raza"),
-            @Mapping(source = "especie", target = "especie"),
             @Mapping(source = "cliente", target = "cliente"),
     })
     Mascota toMascota(MascotaEntity mascotaEntity);
@@ -29,8 +28,8 @@ public interface MascotaMapper {
     @Mappings({
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
-            @Mapping(source = "raza", target = "raza"),
-            @Mapping(source = "especie", target = "especie"),
+            @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "raza.razaId", target = "razaId"),
             @Mapping(source = "cliente.clienteId", target = "clienteId")
     })
 
@@ -41,8 +40,8 @@ public interface MascotaMapper {
     @Mappings({
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
-            @Mapping(source = "raza", target = "raza"),
-            @Mapping(source = "especie", target = "especie"),
+            @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "razaId", target = "raza.razaId"),
             @Mapping(source = "clienteId", target = "cliente.clienteId")
     })
 
@@ -52,8 +51,8 @@ public interface MascotaMapper {
     @Mappings({
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
-            @Mapping(source = "raza", target = "raza"),
-            @Mapping(source = "especie", target = "especie"),
+            @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "raza.razaId", target = "razaId"),
             @Mapping(source = "cliente.clienteId", target = "clienteId")
     })
 
@@ -63,8 +62,8 @@ public interface MascotaMapper {
     @Mappings({
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
-            @Mapping(source = "raza", target = "raza"),
-            @Mapping(source = "especie", target = "especie"),
+            @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "raza.razaId", target = "razaId"),
             @Mapping(source = "cliente.clienteId", target = "clienteId")
     })
 

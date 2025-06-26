@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import webvet.v1.application.dto.ClienteDto;
 import webvet.v1.application.dto.MascotaDto;
 import webvet.v1.application.dto.response.ResponseBase;
 import webvet.v1.domain.ports.input.MascotaIn;
@@ -14,7 +13,6 @@ import webvet.v1.infraestructure.mapper.MascotaMapper;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController

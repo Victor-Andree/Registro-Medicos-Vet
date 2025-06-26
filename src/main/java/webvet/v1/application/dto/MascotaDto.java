@@ -1,6 +1,5 @@
 package webvet.v1.application.dto;
 
-import webvet.v1.domain.aggregates.model.Cliente;
 
 public class MascotaDto {
 
@@ -8,9 +7,9 @@ public class MascotaDto {
 
     private String nombre;
 
-    private String raza;
+    private int edad;
 
-    private String especie;
+    private Long razaId;
 
     private Long clienteId;
 
@@ -30,27 +29,15 @@ public class MascotaDto {
         this.nombre = nombre;
     }
 
-    public String getRaza() {
-        return raza;
-    }
+    public int getEdad() {return edad;}
 
-    public void setRaza(String raza) {
-        this.raza = raza;
-    }
+    public void setEdad(int edad) {this.edad = edad;}
 
-    public String getEspecie() {
-        return especie;
-    }
+    public Long getRazaId() {return razaId;}
 
-    public void setEspecie(String especie) {
-        this.especie = especie;
-    }
+    public void setRazaId(Long razaId) {this.razaId = razaId;}
 
-    public Long getClienteId() {
-        return clienteId;
-    }
+    public Long getClienteId() {return clienteId;}
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
-    }
+    public void setClienteId(Long clienteId) {this.clienteId = clienteId;}
 }
