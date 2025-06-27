@@ -1,6 +1,6 @@
 package webvet.v1.application.dto;
 
-public class Veterinario {
+public class VeterinarioDto {
 
     private Long veterinarioId;
 

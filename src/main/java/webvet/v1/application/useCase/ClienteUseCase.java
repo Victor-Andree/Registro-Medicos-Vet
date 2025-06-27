@@ -16,11 +16,14 @@ import java.util.Optional;
 @Service
 public class ClienteUseCase implements ClienteIn {
 
-    @Autowired
-    private ClienteOut clienteOut;
+    private final ClienteOut clienteOut;
 
-    @Autowired
-    private ClienteMapper clienteMapper;
+    private final ClienteMapper clienteMapper;
+
+    public ClienteUseCase(ClienteOut clienteOut, ClienteMapper clienteMapper) {
+        this.clienteOut = clienteOut;
+        this.clienteMapper = clienteMapper;
+    }
 
     @Override
     public Optional<ClienteDto> crearCliente(ClienteDto clienteDto) {

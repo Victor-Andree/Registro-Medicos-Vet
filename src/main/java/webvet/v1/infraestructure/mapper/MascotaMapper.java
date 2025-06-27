@@ -16,6 +16,7 @@ public interface MascotaMapper {
     @Mappings({
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
+            @Mapping(source = "edad" , target = "edad"),
             @Mapping(source = "raza", target = "raza"),
             @Mapping(source = "cliente", target = "cliente"),
     })

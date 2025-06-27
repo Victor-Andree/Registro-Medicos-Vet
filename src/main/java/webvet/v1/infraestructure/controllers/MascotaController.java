@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webvet.v1.application.dto.MascotaDto;
+import webvet.v1.application.dto.RazaDto;
 import webvet.v1.application.dto.response.ResponseBase;
 import webvet.v1.domain.ports.input.MascotaIn;
+import webvet.v1.domain.ports.input.RazaIn;
 import webvet.v1.infraestructure.mapper.MascotaMapper;
 
 import java.util.Collections;
@@ -22,11 +24,14 @@ public class MascotaController {
 
     private final MascotaIn mascotaIn;
 
+    private final RazaIn razaIn;
+
     private  final MascotaMapper mascotaMapper;
 
 
-    public MascotaController(MascotaIn mascotaIn, MascotaMapper mascotaMapper) {
+    public MascotaController(MascotaIn mascotaIn, RazaIn razaIn, MascotaMapper mascotaMapper) {
         this.mascotaIn = mascotaIn;
+        this.razaIn = razaIn;
         this.mascotaMapper = mascotaMapper;
     }
 
@@ -109,6 +114,19 @@ public class MascotaController {
 
         return ResponseEntity.ok(new ResponseBase<>(200, "Mascotas del cliente obtenidas correctamente", mascotas));
     }
+
+    @GetMapping("/mascota/listarRazas")
+    public ResponseEntity<ResponseBase<List<RazaDto>>> listarRazas(){
+        List<RazaDto> razas = razaIn.getAllRazas();
+
+        if (razas.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ResponseBase<>(204, "No hay razas disponibles", Collections.emptyList()));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Razas obtenidas correctamente", razas));
+    }
+
 
 
 }

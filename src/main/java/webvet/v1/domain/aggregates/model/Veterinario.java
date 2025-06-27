@@ -10,9 +10,7 @@ public class Veterinario {
 
     private String apellido;
 
-    public Long getVeterinarioId() {
-        return veterinarioId;
-    }
+    public Long getVeterinarioId() {return veterinarioId;}
 
     public void setVeterinarioId(Long veterinarioId) {
         this.veterinarioId = veterinarioId;
