@@ -5,6 +5,6 @@ import webvet.v1.infraestructure.entity.UsuarioEntity;
 
 import java.util.Optional;
 
-public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
+public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
     Optional<UsuarioEntity> findByUsername(String username);
 }

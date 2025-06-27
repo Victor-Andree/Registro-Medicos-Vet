@@ -1,6 +1,9 @@
 package webvet.v1.application.dto;
 
+import webvet.v1.domain.aggregates.constans.EstadoUsuario;
 import webvet.v1.domain.aggregates.constans.RolEnum;
+
+import java.time.LocalDateTime;
 
 public class UsuarioDto {
 
@@ -9,6 +12,10 @@ public class UsuarioDto {
     private String username;
 
     private String password;
+
+    private EstadoUsuario estado;
+
+    private LocalDateTime fechaRegistro;
 
     private RolEnum rol;
 
@@ -43,4 +50,12 @@ public class UsuarioDto {
     public void setRol(RolEnum rol) {
         this.rol = rol;
     }
+
+    public EstadoUsuario getEstado() {return estado;}
+
+    public void setEstado(EstadoUsuario estado) {this.estado = estado;}
+
+    public LocalDateTime getFechaRegistro() {return fechaRegistro;}
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {this.fechaRegistro = fechaRegistro;}
 }

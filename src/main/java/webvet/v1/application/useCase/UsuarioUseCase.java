@@ -3,11 +3,17 @@ package webvet.v1.application.useCase;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import webvet.v1.application.dto.UsuarioDto;
+import webvet.v1.domain.aggregates.constans.EstadoUsuario;
 import webvet.v1.domain.aggregates.model.Usuario;
 import webvet.v1.domain.ports.input.UsuarioIn;
 import webvet.v1.domain.ports.output.UsuarioOut;
+import webvet.v1.infraestructure.mapper.UsuarioMapper;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -18,9 +24,12 @@ public class UsuarioUseCase implements UsuarioIn {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UsuarioUseCase(UsuarioOut usuarioOut, PasswordEncoder passwordEncoder) {
+    private final UsuarioMapper usuarioMapper;
+
+    public UsuarioUseCase(UsuarioOut usuarioOut, PasswordEncoder passwordEncoder, UsuarioMapper usuarioMapper) {
         this.usuarioOut = usuarioOut;
         this.passwordEncoder = passwordEncoder;
+        this.usuarioMapper = usuarioMapper;
     }
 
 
@@ -39,6 +48,8 @@ public class UsuarioUseCase implements UsuarioIn {
         nuevoUsuario.setUsername(usuarioDto.getUsername());
         nuevoUsuario.setPassword(passwordEncriptada);
         nuevoUsuario.setRol(usuarioDto.getRol()); // ← AQUÍ USAMOS EL ROL QUE LLEGA EN EL JSON
+        nuevoUsuario.setEstado(EstadoUsuario.ACTIVO);
+        nuevoUsuario.setFechaRegistro(LocalDateTime.now(ZoneId.of("America/Lima")));
 
         Optional<Usuario> usuarioCreado = usuarioOut.crearUsuario(nuevoUsuario);
 
@@ -64,6 +75,35 @@ public class UsuarioUseCase implements UsuarioIn {
             return dto;
         });
     }
+
+    @Override
+    public Optional<UsuarioDto> desactivarUsuario(int usuarioId) {
+        Optional<Usuario> usuarioOpt = usuarioOut.findUsuarioById(usuarioId);
+        if (usuarioOpt.isEmpty()) return Optional.empty();
+
+        Usuario usuario = usuarioOpt.get();
+        usuario.setEstado(EstadoUsuario.INACTIVO);
+
+        return usuarioOut.actualizarUsuario(usuario)
+                .map(usuarioMapper::toUsuarioDto);
+    }
+
+    @Override
+    public Optional<UsuarioDto> actualizarUsuario(UsuarioDto usuarioDto) {
+        Usuario usuario = usuarioMapper.toUsuarioFromtDto(usuarioDto);
+        return usuarioOut.actualizarUsuario(usuario)
+                .map(usuarioMapper::toUsuarioDto);
+    }
+
+    @Override
+    public List<UsuarioDto> listarUsuarios() {
+        List<Usuario> usuarios = usuarioOut.listarUsuarios();
+        return usuarios.stream()
+                .map(usuarioMapper::toUsuarioDto)
+                .collect(Collectors.toList());
+    }
+
+
 
 
 }

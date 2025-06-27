@@ -1,14 +1,18 @@
 package webvet.v1.domain.ports.input;
 
 import webvet.v1.application.dto.UsuarioDto;
-import webvet.v1.domain.aggregates.model.Usuario;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioIn {
 
     Optional<UsuarioDto> CrearUsuario(UsuarioDto usuario);
     Optional<UsuarioDto> findUsuarioByUsername(String username);
+    Optional<UsuarioDto> desactivarUsuario(int usuarioId);
+    Optional<UsuarioDto> actualizarUsuario(UsuarioDto usuarioDto);
+    List<UsuarioDto> listarUsuarios();
+
 
 
 }

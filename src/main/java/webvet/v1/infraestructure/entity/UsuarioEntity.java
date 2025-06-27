@@ -2,7 +2,10 @@ package webvet.v1.infraestructure.entity;
 
 
 import jakarta.persistence.*;
+import webvet.v1.domain.aggregates.constans.EstadoUsuario;
 import webvet.v1.domain.aggregates.constans.RolEnum;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Usuarios")
@@ -18,6 +21,11 @@ public class UsuarioEntity {
 
     @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoUsuario estado;
+
+    private LocalDateTime fechaRegistro;
 
     @Enumerated(EnumType.STRING)
     private RolEnum rol;
@@ -53,4 +61,12 @@ public class UsuarioEntity {
     public void setRol(RolEnum rol) {
         this.rol = rol;
     }
+
+    public EstadoUsuario getEstado() {return estado;}
+
+    public void setEstado(EstadoUsuario estado) {this.estado = estado;}
+
+    public LocalDateTime getFechaRegistro() {return fechaRegistro;}
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {this.fechaRegistro = fechaRegistro;}
 }

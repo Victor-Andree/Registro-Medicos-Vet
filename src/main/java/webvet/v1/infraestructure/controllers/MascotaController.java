@@ -80,7 +80,7 @@ public class MascotaController {
     }
 
     @GetMapping("/mascota/nombre/{nombre}")
-    public ResponseEntity<ResponseBase<MascotaDto>> obtenerMascotaPorNonre(@PathVariable String nombre) {
+    public ResponseEntity<ResponseBase<MascotaDto>> obtenerMascotaPorNombre(@PathVariable String nombre) {
         return mascotaIn.findMascotabyname(nombre)
                 .map(mascotaDto -> ResponseEntity.ok(new ResponseBase<>(200, "Mascota encontrado", mascotaDto)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)

@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webvet.v1.application.dto.UsuarioDto;
+import webvet.v1.application.dto.response.ResponseBase;
 import webvet.v1.domain.ports.input.UsuarioIn;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -48,6 +50,42 @@ public class UsuarioController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<ResponseBase<UsuarioDto>> actualizarUsuario(@RequestBody UsuarioDto usuarioDto) {
+        Optional<UsuarioDto> usuarioActualizado = usuarioIn.actualizarUsuario(usuarioDto);
+
+        if (usuarioActualizado.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Usuario no encontrado", null));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Usuario actualizado correctamente", usuarioActualizado.get()));
+    }
+
+    @PutMapping("/desactivar/{usuarioId}")
+    public ResponseEntity<ResponseBase<UsuarioDto>> desactivarUsuario(@PathVariable int usuarioId) {
+        Optional<UsuarioDto> usuarioDesactivado = usuarioIn.desactivarUsuario(usuarioId);
+
+        if (usuarioDesactivado.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Usuario no encontrado", null));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Usuario desactivado correctamente", usuarioDesactivado.get()));
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<ResponseBase<List<UsuarioDto>>> listarUsuarios() {
+        List<UsuarioDto> usuarios = usuarioIn.listarUsuarios();
+
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ResponseBase<>(204, "No hay usuarios registrados", usuarios));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Usuarios obtenidos correctamente", usuarios));
     }
 
 

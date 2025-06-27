@@ -19,6 +19,8 @@ public interface UsuarioMapper {
             @Mapping(source = "username" , target = "username"),
             @Mapping(source = "password" , target = "password"),
             @Mapping(source = "rol" , target = "rol"),
+            @Mapping(source = "estado" , target = "estado"),
+            @Mapping(source = "fechaRegistro", target = "fechaRegistro"),
     })
 
     Usuario toUsuario(UsuarioEntity usuarioEntity);
@@ -31,6 +33,8 @@ public interface UsuarioMapper {
             @Mapping(source = "username" , target = "username"),
             @Mapping(source = "password" , target = "password"),
             @Mapping(source = "rol" , target = "rol"),
+            @Mapping(source = "estado" , target = "estado"),
+            @Mapping(source = "fechaRegistro", target = "fechaRegistro"),
     })
     UsuarioDto toUsuarioDto(Usuario usuario);
 
@@ -39,6 +43,8 @@ public interface UsuarioMapper {
             @Mapping(source = "username" , target = "username"),
             @Mapping(source = "password" , target = "password"),
             @Mapping(source = "rol" , target = "rol"),
+            @Mapping(source = "estado" , target = "estado"),
+            @Mapping(source = "fechaRegistro", target = "fechaRegistro"),
     })
     Usuario toUsuarioFromtDto(UsuarioDto usuarioDto);
 
@@ -47,6 +53,8 @@ public interface UsuarioMapper {
             @Mapping(source = "username" , target = "username"),
             @Mapping(source = "password" , target = "password"),
             @Mapping(source = "rol" , target = "rol"),
+            @Mapping(source = "estado" , target = "estado"),
+            @Mapping(source = "fechaRegistro", target = "fechaRegistro"),
     })
     List<UsuarioDto> toUsuarioDto(List<Usuario> usuarios);
 

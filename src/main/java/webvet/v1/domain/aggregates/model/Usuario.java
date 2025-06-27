@@ -2,8 +2,10 @@ package webvet.v1.domain.aggregates.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import webvet.v1.domain.aggregates.constans.EstadoUsuario;
 import webvet.v1.domain.aggregates.constans.RolEnum;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,6 +16,10 @@ public class Usuario implements UserDetails {
     private String username;
 
     private String password;
+
+    private EstadoUsuario estado;
+
+    private LocalDateTime fechaRegistro;
 
     private RolEnum rol;
 
@@ -28,6 +34,7 @@ public class Usuario implements UserDetails {
     public String getUsername() {
         return username;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -74,4 +81,12 @@ public class Usuario implements UserDetails {
     public void setRol(RolEnum rol) {
         this.rol = rol;
     }
+
+    public EstadoUsuario getEstado() {return estado;}
+
+    public void setEstado(EstadoUsuario estado) {this.estado = estado;}
+
+    public LocalDateTime getFechaRegistro() {return fechaRegistro;}
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {this.fechaRegistro = fechaRegistro;}
 }
