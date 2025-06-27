@@ -2,6 +2,7 @@ package webvet.v1.infraestructure.entity;
 
 
 import jakarta.persistence.*;
+import webvet.v1.domain.aggregates.constans.EstadoMascota;
 
 @Entity
 @Table(name = "Mascota")
@@ -17,6 +18,10 @@ public class MascotaEntity {
 
     @Column(name = "edad", nullable = false)
     private Integer edad;
+
+
+    @Enumerated(EnumType.STRING)
+    private EstadoMascota estado;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
@@ -69,4 +74,8 @@ public class MascotaEntity {
     public RazaEntity getRaza() {return raza;}
 
     public void setRaza(RazaEntity raza) {this.raza = raza;}
+
+    public EstadoMascota getEstado() {return estado;}
+
+    public void setEstado(EstadoMascota estado) {this.estado = estado;}
 }

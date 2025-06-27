@@ -127,6 +127,18 @@ public class MascotaController {
         return ResponseEntity.ok(new ResponseBase<>(200, "Razas obtenidas correctamente", razas));
     }
 
+    @PutMapping("/desactivar/{mascotaId}")
+    public ResponseEntity<ResponseBase<MascotaDto>> desactivarMascota(@PathVariable Long mascotaId) {
+        Optional<MascotaDto> mascotaFallecida = mascotaIn.ChangestatusMascota(mascotaId);
+
+        if (mascotaFallecida.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Mascota no encontrado", null));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Mascota desactivada correctamente", mascotaFallecida.get()));
+    }
+
 
 
 }

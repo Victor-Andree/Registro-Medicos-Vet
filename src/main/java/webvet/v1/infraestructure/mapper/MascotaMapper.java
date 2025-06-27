@@ -17,6 +17,7 @@ public interface MascotaMapper {
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "estado" , target = "estado"),
             @Mapping(source = "raza", target = "raza"),
             @Mapping(source = "cliente", target = "cliente"),
     })
@@ -30,6 +31,7 @@ public interface MascotaMapper {
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "estado" , target = "estado"),
             @Mapping(source = "raza.razaId", target = "razaId"),
             @Mapping(source = "cliente.clienteId", target = "clienteId")
     })
@@ -42,6 +44,7 @@ public interface MascotaMapper {
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "estado" , target = "estado"),
             @Mapping(source = "razaId", target = "raza.razaId"),
             @Mapping(source = "clienteId", target = "cliente.clienteId")
     })
@@ -53,6 +56,7 @@ public interface MascotaMapper {
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "estado" , target = "estado"),
             @Mapping(source = "raza.razaId", target = "razaId"),
             @Mapping(source = "cliente.clienteId", target = "clienteId")
     })
@@ -64,6 +68,7 @@ public interface MascotaMapper {
             @Mapping(source = "mascotaId", target = "mascotaId"),
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "edad" , target = "edad"),
+            @Mapping(source = "estado" , target = "estado"),
             @Mapping(source = "raza.razaId", target = "razaId"),
             @Mapping(source = "cliente.clienteId", target = "clienteId")
     })

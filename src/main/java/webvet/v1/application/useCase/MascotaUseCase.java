@@ -4,7 +4,10 @@ package webvet.v1.application.useCase;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import webvet.v1.application.dto.MascotaDto;
+import webvet.v1.domain.aggregates.constans.EstadoMascota;
+import webvet.v1.domain.aggregates.constans.EstadoUsuario;
 import webvet.v1.domain.aggregates.model.Mascota;
+import webvet.v1.domain.aggregates.model.Usuario;
 import webvet.v1.domain.ports.input.MascotaIn;
 import webvet.v1.domain.ports.output.MascotaOut;
 import webvet.v1.infraestructure.mapper.MascotaMapper;
@@ -78,6 +81,18 @@ public class MascotaUseCase implements MascotaIn {
         return mascotas.stream()
                 .map(mascotaMapper::toMascotaDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<MascotaDto> ChangestatusMascota(Long mascotaId){
+        Optional<Mascota> mascotas = mascotaOut.findByIdMascota(mascotaId);
+        if (mascotas.isEmpty()) return Optional.empty();
+
+        Mascota mascota = mascotas.get();
+        mascota.setEstado(EstadoMascota.FALLECIDO);
+
+        return mascotaOut.updateMascota(mascota)
+                .map(mascotaMapper::toMascotaDto);
     }
 
 

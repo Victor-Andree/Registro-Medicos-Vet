@@ -1,6 +1,8 @@
 package webvet.v1.application.dto;
 
 
+import webvet.v1.domain.aggregates.constans.EstadoMascota;
+
 public class MascotaDto {
 
     private Long mascotaId;
@@ -8,6 +10,8 @@ public class MascotaDto {
     private String nombre;
 
     private int edad;
+
+    private EstadoMascota estado;
 
     private Long razaId;
 
@@ -40,4 +44,8 @@ public class MascotaDto {
     public Long getClienteId() {return clienteId;}
 
     public void setClienteId(Long clienteId) {this.clienteId = clienteId;}
+
+    public EstadoMascota getEstado() {return estado;}
+
+    public void setEstado(EstadoMascota estado) {this.estado = estado;}
 }

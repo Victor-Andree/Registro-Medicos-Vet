@@ -1,5 +1,7 @@
 package webvet.v1.domain.aggregates.model;
 
+import webvet.v1.domain.aggregates.constans.EstadoMascota;
+
 public class Mascota {
 
     private Long mascotaId;
@@ -8,10 +10,11 @@ public class Mascota {
 
     private int edad;
 
+    private EstadoMascota estado;
+
     private Raza raza;
 
     private Cliente cliente;
-
 
 
     public Long getMascotaId() {
@@ -45,4 +48,8 @@ public class Mascota {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public EstadoMascota getEstado() {return estado;}
+
+    public void setEstado(EstadoMascota estado) {this.estado = estado;}
 }

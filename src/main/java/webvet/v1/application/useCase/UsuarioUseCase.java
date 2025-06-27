@@ -58,6 +58,8 @@ public class UsuarioUseCase implements UsuarioIn {
             dto.setUsuarioId(user.getUsuarioId());
             dto.setUsername(user.getUsername());
             dto.setRol(user.getRol());
+            dto.setEstado(user.getEstado());
+            dto.setFechaRegistro(user.getFechaRegistro());
             return dto;
         });
 
