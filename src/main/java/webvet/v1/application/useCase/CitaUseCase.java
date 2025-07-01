@@ -4,8 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import webvet.v1.application.dto.CitaDto;
 import webvet.v1.domain.aggregates.model.Cita;
-import webvet.v1.domain.aggregates.model.Mascota;
-import webvet.v1.domain.aggregates.model.Triaje;
 import webvet.v1.domain.ports.input.CitaIn;
 import webvet.v1.domain.ports.output.CitaOut;
 import webvet.v1.infraestructure.mapper.CitaMapper;

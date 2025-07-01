@@ -1,6 +1,5 @@
 package webvet.v1.domain.ports.output;
 
-import webvet.v1.application.dto.MascotaDto;
 import webvet.v1.domain.aggregates.model.Mascota;
 import webvet.v1.infraestructure.entity.MascotaEntity;
 

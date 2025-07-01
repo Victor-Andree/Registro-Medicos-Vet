@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webvet.v1.application.dto.CitaDto;
-import webvet.v1.application.dto.MascotaDto;
 import webvet.v1.application.dto.response.ResponseBase;
-import webvet.v1.domain.aggregates.model.Cita;
 import webvet.v1.domain.ports.input.CitaIn;
 
 import java.time.LocalDate;

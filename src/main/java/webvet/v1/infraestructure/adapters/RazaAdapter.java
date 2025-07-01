@@ -1,7 +1,6 @@
 package webvet.v1.infraestructure.adapters;
 
 import org.springframework.stereotype.Service;
-import webvet.v1.application.dto.RazaDto;
 import webvet.v1.domain.aggregates.model.Raza;
 import webvet.v1.domain.ports.output.RazaOut;
 import webvet.v1.infraestructure.entity.RazaEntity;
