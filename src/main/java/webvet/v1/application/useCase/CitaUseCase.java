@@ -35,8 +35,6 @@ public class CitaUseCase implements CitaIn {
         Cita cita = citaMapper.toCitaFromDto(citaDto);
 
         Optional<Cita> citaCreada = citaOut.createCita(cita);
-
-        cita.setFechaRegistro(LocalDateTime.now(ZoneId.of("America/Lima")));
         return citaCreada.map(citaMapper::toCitaDto);
     }
 
