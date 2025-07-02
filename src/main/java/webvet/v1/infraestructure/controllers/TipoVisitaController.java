@@ -10,6 +10,7 @@ import webvet.v1.application.dto.TipoServicioDto;
 import webvet.v1.application.dto.TipoVisitaDto;
 import webvet.v1.application.dto.response.ResponseBase;
 import webvet.v1.domain.aggregates.model.TipoVisita;
+import webvet.v1.domain.ports.input.TipoServicioIn;
 import webvet.v1.domain.ports.input.TipoVisitaIn;
 
 import java.util.Collections;
@@ -22,7 +23,6 @@ import java.util.Optional;
 public class TipoVisitaController {
 
     private final TipoVisitaIn tipoVisitaIn;
-
 
     public TipoVisitaController(TipoVisitaIn tipoVisitaIn) {
         this.tipoVisitaIn = tipoVisitaIn;
@@ -49,7 +49,7 @@ public class TipoVisitaController {
         }
     }
 
-    @GetMapping("/listarTiposServicios")
+    @GetMapping("/listarTiposVisitas")
     public ResponseEntity<ResponseBase<List<TipoVisitaDto>>>getAllTiposSVisitas(){
         List<TipoVisitaDto> allTiposVisitas = tipoVisitaIn.getAllTipoVisitas();
 
