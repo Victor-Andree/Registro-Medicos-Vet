@@ -54,9 +54,10 @@ public class ClienteUseCase implements ClienteIn {
     }
 
     @Override
-    public Optional<ClienteDto> obtenerClientePorNombre(String nombre) {
-        return clienteOut.EncontrarCliente(nombre)
-                .map(clienteMapper::toClienteDtoFromEntity);
+    public List<ClienteDto> obtenerClientePorNombre(String nombre) {
+        return clienteOut.EncontrarCliente(nombre).stream()
+                .map(clienteMapper::toClienteDtoFromEntity)
+                .toList();
     }
 
     @Override

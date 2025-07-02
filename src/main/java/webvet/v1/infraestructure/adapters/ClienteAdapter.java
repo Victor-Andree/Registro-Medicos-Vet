@@ -44,7 +44,7 @@ public class ClienteAdapter implements ClienteOut {
    }
 
    @Override
-    public Optional<ClienteEntity> EncontrarCliente(String nombre){
+    public List<ClienteEntity> EncontrarCliente(String nombre){
 
        return clienteRepository.findByNombre(nombre);
 

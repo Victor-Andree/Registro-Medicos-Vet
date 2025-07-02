@@ -11,7 +11,7 @@ public interface ClienteOut {
 
     List<Cliente> ListarClientes ();
 
-    Optional<ClienteEntity> EncontrarCliente (String nombre);
+    List<ClienteEntity> EncontrarCliente (String nombre);
 
     Optional<Cliente> EncontrarId (Long id);
 

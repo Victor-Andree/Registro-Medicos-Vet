@@ -74,12 +74,17 @@ public class ClienteController {
     }
 
     @GetMapping("/cliente/nombre/{nombre}")
-    public ResponseEntity<ResponseBase<ClienteDto>> obtenerClientePorNombre(@PathVariable String nombre) {
-        return clientesIn.obtenerClientePorNombre(nombre)
-                .map(clienteDto -> ResponseEntity.ok(new ResponseBase<>(200, "Cliente encontrado", clienteDto)))
-                        .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                .body(new ResponseBase<>(404, "Cliente con nombre"+ nombre + "no encontrado", null )));
+    public ResponseEntity<ResponseBase<List<ClienteDto>>> obtenerClientePorNombre(@PathVariable String nombre) {
+        List<ClienteDto> clientes = clientesIn.obtenerClientePorNombre(nombre);
+
+        if (clientes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "No se encontraron clientes con el nombre: " + nombre, null));
+        } else {
+            return ResponseEntity.ok(new ResponseBase<>(200, "Clientes encontrados", clientes));
+        }
     }
+
 
     @PutMapping("/cliente/editar/{id}")
     public ResponseEntity<ResponseBase<ClienteDto>> actualizarCliente(@PathVariable Long id, @RequestBody @Valid ClienteDto clienteDto) {

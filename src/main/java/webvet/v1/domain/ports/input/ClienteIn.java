@@ -14,7 +14,7 @@ public interface ClienteIn {
 
     Optional<Cliente> obtenerClientePorId(Long id);
 
-    Optional<ClienteDto> obtenerClientePorNombre(String nombre);
+    List<ClienteDto> obtenerClientePorNombre(String nombre);
 
     Optional<ClienteDto> updateCliente(ClienteDto clienteDto);
 
