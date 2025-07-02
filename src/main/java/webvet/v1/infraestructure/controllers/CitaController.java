@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webvet.v1.application.dto.CitaDto;
 import webvet.v1.application.dto.TipoServicioDto;
+import webvet.v1.application.dto.VeterinarioDto;
 import webvet.v1.application.dto.response.ResponseBase;
 import webvet.v1.domain.ports.input.CitaIn;
 import webvet.v1.domain.ports.input.TipoServicioIn;
+import webvet.v1.domain.ports.input.VeterinarioIn;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -23,11 +25,13 @@ public class CitaController {
 
     private final CitaIn citaIn;
     private final TipoServicioIn tipoServicioIn;
+    private final VeterinarioIn veterinarioIn;
 
 
-    public CitaController(CitaIn citaIn, TipoServicioIn tipoServicioIn) {
+    public CitaController(CitaIn citaIn, TipoServicioIn tipoServicioIn, VeterinarioIn veterinarioIn) {
         this.citaIn = citaIn;
         this.tipoServicioIn = tipoServicioIn;
+        this.veterinarioIn = veterinarioIn;
     }
 
     @PostMapping("/RegistrarCita")
@@ -92,6 +96,20 @@ public class CitaController {
         }
 
         return ResponseEntity.ok(new ResponseBase<>(200, "Los tipoServicioS se obtuvieron", allTipoServicios));
+
+
+    }
+
+    @GetMapping("/listarVeterinarios")
+    public ResponseEntity<ResponseBase<List<VeterinarioDto>>>getAllVeterinarios(){
+        List<VeterinarioDto> veterinarios = veterinarioIn.getAllVeterinarios();
+
+        if (veterinarios.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ResponseBase<>(204, " No existen Veterinarios registrados", Collections.emptyList()));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Los Veterinarios se obtuvieron", veterinarios));
 
 
     }
