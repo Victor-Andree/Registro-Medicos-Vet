@@ -1,5 +1,6 @@
 package webvet.v1.domain.ports.output;
 
+import webvet.v1.application.dto.CitaDto;
 import webvet.v1.domain.aggregates.model.Cita;
 
 import java.time.LocalDate;
@@ -8,7 +9,7 @@ import java.util.Optional;
 
 public interface CitaOut {
 
-    Optional<Cita> createCita (Cita cita);
+    Optional<CitaDto> createCita(Cita cita);
 
     List<Cita> getAllCitas();
 

@@ -1,12 +1,12 @@
 package webvet.v1.infraestructure.adapters;
 
 import org.springframework.stereotype.Service;
+import webvet.v1.application.dto.CitaDto;
 import webvet.v1.domain.aggregates.model.Cita;
 import webvet.v1.domain.ports.output.CitaOut;
-import webvet.v1.infraestructure.entity.CitaEntity;
-import webvet.v1.infraestructure.entity.MascotaEntity;
+import webvet.v1.infraestructure.entity.*;
 import webvet.v1.infraestructure.mapper.*;
-import webvet.v1.infraestructure.repository.CitaRepository;
+import webvet.v1.infraestructure.repository.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,26 +24,44 @@ public class CitaAdapter implements CitaOut {
     private final TipoServicioMapper tipoServicioMapper;
     private final MascotaMapper mascotaMapper;
     private final VeterinarioMapper veterinarioMapper;
+    private final TipoServicioRepository tipoServicioRepository;
+    private final ClienteRepository clienteRepository;
+    private final MascotaRepository mascotaRepository;
+    private final VeterinarioRepository veterinarioRepository;
 
 
-    public CitaAdapter(CitaMapper citaMapper, CitaRepository citaRepository, ClienteMapper clienteMapper, TipoServicioMapper tipoServicioMapper, MascotaMapper mascotaMapper, VeterinarioMapper veterinarioMapper) {
+    public CitaAdapter(CitaMapper citaMapper, CitaRepository citaRepository, ClienteMapper clienteMapper, TipoServicioMapper tipoServicioMapper, MascotaMapper mascotaMapper, VeterinarioMapper veterinarioMapper, TipoServicioRepository tipoServicioRepository, ClienteRepository clienteRepository, MascotaRepository mascotaRepository, VeterinarioRepository veterinarioRepository) {
         this.citaMapper = citaMapper;
         this.citaRepository = citaRepository;
         this.clienteMapper = clienteMapper;
         this.tipoServicioMapper = tipoServicioMapper;
         this.mascotaMapper = mascotaMapper;
         this.veterinarioMapper = veterinarioMapper;
+        this.tipoServicioRepository = tipoServicioRepository;
+        this.clienteRepository = clienteRepository;
+        this.mascotaRepository = mascotaRepository;
+        this.veterinarioRepository = veterinarioRepository;
     }
 
 
     @Override
-    public Optional<Cita> createCita (Cita cita){
+    public Optional<CitaDto> createCita (Cita cita){
 
         CitaEntity citaEntity = citaMapper.toCitaEntity(cita);
+
+        TipoServicioEntity tipoServicio = tipoServicioRepository.getReferenceById(cita.getTipoServicio().getTipoServicioId());
+        ClienteEntity cliente = clienteRepository.getReferenceById(cita.getCliente().getClienteId());
+        MascotaEntity mascota = mascotaRepository.getReferenceById(cita.getMascota().getMascotaId());
+        VeterinarioEntity veterinario = veterinarioRepository.getReferenceById(cita.getVeterinario().getVeterinarioId());
+
+        citaEntity.setTipoServicio(tipoServicio);
+        citaEntity.setCliente(cliente);
+        citaEntity.setMascota(mascota);
+        citaEntity.setVeterinario(veterinario);
+
         CitaEntity citaCreate = citaRepository.save(citaEntity);
 
-
-        return Optional.of(citaMapper.toCita(citaEntity));
+        return Optional.of(citaMapper.toCitaDtoFromEntity(citaCreate));
     }
 
     @Override

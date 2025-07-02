@@ -31,12 +31,11 @@ public class CitaUseCase implements CitaIn {
     }
 
     @Override
-    public Optional<CitaDto> createCita (CitaDto citaDto){
+    public Optional<CitaDto> createCita(CitaDto citaDto){
         Cita cita = citaMapper.toCitaFromDto(citaDto);
-
-        Optional<Cita> citaCreada = citaOut.createCita(cita);
-        return citaCreada.map(citaMapper::toCitaDto);
+        return citaOut.createCita(cita);
     }
+
 
     @Override
     public List<CitaDto> getAllCitas(){
