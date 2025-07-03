@@ -77,4 +77,9 @@ public class CitaUseCase implements CitaIn {
 
         return citaActualizada.map(citaMapper::toCitaDto);
     }
+
+    @Override
+    public Optional<Cita> foundCitaById(Long id){
+        return citaOut.foundCitaById(id);
+    }
 }

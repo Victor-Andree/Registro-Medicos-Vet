@@ -19,4 +19,7 @@ public interface CitaOut {
 
     Optional<Cita> updateCita(Cita cita);
 
+    Optional<Cita> foundCitaById(Long citaId);
+
+
 }

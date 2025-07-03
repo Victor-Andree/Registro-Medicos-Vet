@@ -123,5 +123,11 @@ public class CitaAdapter implements CitaOut {
 
     }
 
+    @Override
+    public Optional<Cita> foundCitaById(Long citaId){
+        return citaRepository.findById(citaId)
+                .map(citaMapper::toCita);
+    }
+
 
 }

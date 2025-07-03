@@ -19,4 +19,6 @@ public interface CitaIn {
 
     Optional<CitaDto> updateCita(CitaDto citaDto);
 
+    Optional<Cita> foundCitaById(Long id);
+
 }

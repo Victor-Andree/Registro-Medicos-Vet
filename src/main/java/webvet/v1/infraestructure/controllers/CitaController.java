@@ -12,6 +12,7 @@ import webvet.v1.application.dto.response.ResponseBase;
 import webvet.v1.domain.ports.input.CitaIn;
 import webvet.v1.domain.ports.input.TipoServicioIn;
 import webvet.v1.domain.ports.input.VeterinarioIn;
+import webvet.v1.infraestructure.mapper.CitaMapper;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -26,12 +27,14 @@ public class CitaController {
     private final CitaIn citaIn;
     private final TipoServicioIn tipoServicioIn;
     private final VeterinarioIn veterinarioIn;
+    private final CitaMapper citaMapper;
 
 
-    public CitaController(CitaIn citaIn, TipoServicioIn tipoServicioIn, VeterinarioIn veterinarioIn) {
+    public CitaController(CitaIn citaIn, TipoServicioIn tipoServicioIn, VeterinarioIn veterinarioIn, CitaMapper citaMapper) {
         this.citaIn = citaIn;
         this.tipoServicioIn = tipoServicioIn;
         this.veterinarioIn = veterinarioIn;
+        this.citaMapper = citaMapper;
     }
 
     @PostMapping("/RegistrarCita")
@@ -63,7 +66,6 @@ public class CitaController {
         return ResponseEntity.ok(new ResponseBase<>(200, "Mascotas del cliente obtenidas correctamente", citas));
 
     }
-
 
     @GetMapping("/fecha")
     public ResponseEntity<ResponseBase<List<CitaDto>>> getCitasByFecha(@RequestParam String fecha) {
@@ -113,5 +115,15 @@ public class CitaController {
 
 
     }
+
+    @GetMapping("/cita/{id}")
+    public ResponseEntity<ResponseBase<CitaDto>> obtenerCita(@PathVariable Long id) {
+        return citaIn.foundCitaById(id)
+                .map(cita -> citaMapper.toCitaDto(cita))
+                .map(dto -> ResponseEntity.ok(new ResponseBase<>(200, "Cita encontrada", dto)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseBase<>(404, "Cita no encontrado", null)));
+    }
+
 
 }
