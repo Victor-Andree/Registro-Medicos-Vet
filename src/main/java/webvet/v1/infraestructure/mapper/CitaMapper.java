@@ -23,6 +23,7 @@ public interface CitaMapper {
             @Mapping(source = "cliente" , target = "cliente"),
             @Mapping(source = "veterinario", target = "veterinario"),
             @Mapping(source = "motivo", target = "motivo"),
+            @Mapping(source = "estadoCita" , target = "estadoCita"),
 
     })
     Cita toCita(CitaEntity citaEntity);
@@ -36,6 +37,7 @@ public interface CitaMapper {
             @Mapping(source = "cliente.clienteId" , target = "clienteId"),
             @Mapping(source = "veterinario.veterinarioId", target = "veterinarioId"),
             @Mapping(source = "motivo", target = "motivo"),
+            @Mapping(source = "estadoCita" , target = "estadoCita"),
 
     })
     CitaDto toCitaDto(Cita cita);
@@ -49,6 +51,7 @@ public interface CitaMapper {
             @Mapping(source = "clienteId" , target = "cliente.clienteId"),
             @Mapping(source = "veterinarioId", target = "veterinario.veterinarioId"),
             @Mapping(source = "motivo", target = "motivo"),
+            @Mapping(source = "estadoCita" , target = "estadoCita"),
 
     })
     Cita toCitaFromDto(CitaDto citaDto);
@@ -62,6 +65,7 @@ public interface CitaMapper {
             @Mapping(source = "cliente.clienteId" , target = "clienteId"),
             @Mapping(source = "veterinario.veterinarioId", target = "veterinarioId"),
             @Mapping(source = "motivo", target = "motivo"),
+            @Mapping(source = "estadoCita" , target = "estadoCita"),
 
     })
     List<CitaDto> toCitaDtoList(List<Cita> citas);
@@ -74,6 +78,7 @@ public interface CitaMapper {
             @Mapping(source = "cliente.clienteId" , target = "clienteId"),
             @Mapping(source = "veterinario.veterinarioId", target = "veterinarioId"),
             @Mapping(source = "motivo", target = "motivo"),
+            @Mapping(source = "estadoCita" , target = "estadoCita"),
 
     })
     CitaDto toCitaDtoFromEntity(CitaEntity citaEntity);

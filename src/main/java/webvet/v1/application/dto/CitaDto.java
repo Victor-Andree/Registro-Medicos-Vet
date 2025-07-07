@@ -1,5 +1,7 @@
 package webvet.v1.application.dto;
 
+import webvet.v1.domain.aggregates.constans.EstadoCita;
+
 import java.time.LocalDateTime;
 
 public class CitaDto {
@@ -17,6 +19,8 @@ public class CitaDto {
     private Long veterinarioId;
 
     private String motivo;
+
+    private EstadoCita estadoCita;
 
     public Long getCitaId() {
         return citaId;
@@ -72,5 +76,13 @@ public class CitaDto {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public EstadoCita getEstadoCita() {
+        return estadoCita;
+    }
+
+    public void setEstadoCita(EstadoCita estadoCita) {
+        this.estadoCita = estadoCita;
     }
 }

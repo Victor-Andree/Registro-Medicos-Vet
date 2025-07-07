@@ -9,6 +9,7 @@ import webvet.v1.application.dto.CitaDto;
 import webvet.v1.application.dto.TipoServicioDto;
 import webvet.v1.application.dto.VeterinarioDto;
 import webvet.v1.application.dto.response.ResponseBase;
+import webvet.v1.domain.aggregates.constans.EstadoCita;
 import webvet.v1.domain.ports.input.CitaIn;
 import webvet.v1.domain.ports.input.TipoServicioIn;
 import webvet.v1.domain.ports.input.VeterinarioIn;
@@ -130,6 +131,21 @@ public class CitaController {
         List<CitaDto> citasListar = citaIn.getAllCitasByToday();
         return ResponseEntity.ok(new ResponseBase<>(200, "Listado de citas", citasListar));
     }
+
+    @PutMapping("/estado/{id}")
+    public ResponseEntity<ResponseBase<CitaDto>> actualizarEstado(@PathVariable Long id, @RequestParam EstadoCita nuevoEstado) {
+        Optional<CitaDto> cita = citaIn.updateEstadoCita(id, nuevoEstado);
+        if (cita.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Cita no encontrada", null));
+        }
+
+        return ResponseEntity.ok(
+                new ResponseBase<>(200, "Estado de la cita actualizado exitosamente", cita.get())
+        );
+    }
+
+
 
 
 }

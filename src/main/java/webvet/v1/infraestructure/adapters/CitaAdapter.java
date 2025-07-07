@@ -2,6 +2,7 @@ package webvet.v1.infraestructure.adapters;
 
 import org.springframework.stereotype.Service;
 import webvet.v1.application.dto.CitaDto;
+import webvet.v1.domain.aggregates.constans.EstadoCita;
 import webvet.v1.domain.aggregates.model.Cita;
 import webvet.v1.domain.ports.output.CitaOut;
 import webvet.v1.infraestructure.entity.*;
@@ -137,6 +138,15 @@ public class CitaAdapter implements CitaOut {
                 .map(citaMapper::toCita)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<Cita> updateEstadoCita(Long citaId, EstadoCita nuevoEstado) {
+        return citaRepository.findById(citaId).map(entity -> {
+            entity.setEstadoCita(nuevoEstado);
+            return citaMapper.toCita(citaRepository.save(entity));
+        });
+    }
+
 
 
 

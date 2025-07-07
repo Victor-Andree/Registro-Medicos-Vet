@@ -3,6 +3,7 @@ package webvet.v1.application.useCase;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import webvet.v1.application.dto.CitaDto;
+import webvet.v1.domain.aggregates.constans.EstadoCita;
 import webvet.v1.domain.aggregates.model.Cita;
 import webvet.v1.domain.ports.input.CitaIn;
 import webvet.v1.domain.ports.output.CitaOut;
@@ -33,6 +34,9 @@ public class CitaUseCase implements CitaIn {
     @Override
     public Optional<CitaDto> createCita(CitaDto citaDto){
         Cita cita = citaMapper.toCitaFromDto(citaDto);
+
+        cita.setEstadoCita(EstadoCita.PENDIENTE);
+
         return citaOut.createCita(cita);
     }
 
@@ -90,4 +94,11 @@ public class CitaUseCase implements CitaIn {
                 .map(citaMapper::toCitaDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<CitaDto> updateEstadoCita(Long citaId, EstadoCita nuevoEstado) {
+        Optional<Cita> citaActualizada = citaOut.updateEstadoCita(citaId, nuevoEstado);
+        return citaActualizada.map(citaMapper::toCitaDto);
+    }
+
 }

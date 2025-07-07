@@ -2,6 +2,7 @@ package webvet.v1.infraestructure.entity;
 
 
 import jakarta.persistence.*;
+import webvet.v1.domain.aggregates.constans.EstadoCita;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +15,8 @@ public class CitaEntity {
     @Column(name = "cita_id")
     private Long citaId;
 
-
     @Column(name = "fecha_registro", nullable = false)
     private LocalDateTime fechaRegistro;
-
 
     @ManyToOne
     @JoinColumn(name = "tipo_servicio", nullable = false)
@@ -37,6 +36,10 @@ public class CitaEntity {
 
     @Column(name = "motivo", length = 500)
     private String motivo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_cita", nullable = false)
+    private EstadoCita estadoCita;
 
     public Long getCitaId() {
         return citaId;
@@ -92,5 +95,13 @@ public class CitaEntity {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public EstadoCita getEstadoCita() {
+        return estadoCita;
+    }
+
+    public void setEstadoCita(EstadoCita estadoCita) {
+        this.estadoCita = estadoCita;
     }
 }

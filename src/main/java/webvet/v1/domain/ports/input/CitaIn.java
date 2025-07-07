@@ -1,6 +1,7 @@
 package webvet.v1.domain.ports.input;
 
 import webvet.v1.application.dto.CitaDto;
+import webvet.v1.domain.aggregates.constans.EstadoCita;
 import webvet.v1.domain.aggregates.model.Cita;
 
 import java.time.LocalDate;
@@ -23,5 +24,8 @@ public interface CitaIn {
 
     List<CitaDto> getAllCitasByToday();
 
+    Optional<CitaDto> updateEstadoCita(Long citaId, EstadoCita nuevoEstado);
 
-    }
+
+
+}
