@@ -21,5 +21,8 @@ public interface CitaOut {
 
     Optional<Cita> foundCitaById(Long citaId);
 
+    List<Cita> getAllCitasByToday();
+
+
 
 }

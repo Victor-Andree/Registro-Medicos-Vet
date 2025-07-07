@@ -14,6 +14,7 @@ public interface CitaRepository extends JpaRepository<CitaEntity, Long> {
 
     List<CitaEntity> findByCliente_ClienteId(Long clienteId);
 
+    List<CitaEntity> findByFechaRegistroAfter(LocalDateTime fecha);
 
 
 }

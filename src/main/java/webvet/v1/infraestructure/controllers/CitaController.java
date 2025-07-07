@@ -125,5 +125,11 @@ public class CitaController {
                         .body(new ResponseBase<>(404, "Cita no encontrado", null)));
     }
 
+    @GetMapping("/citas/hoy")
+    public ResponseEntity<ResponseBase<List<CitaDto>>> getAllCitasByToday() {
+        List<CitaDto> citasListar = citaIn.getAllCitasByToday();
+        return ResponseEntity.ok(new ResponseBase<>(200, "Listado de citas", citasListar));
+    }
+
 
 }

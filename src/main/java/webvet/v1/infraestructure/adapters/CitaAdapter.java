@@ -129,5 +129,15 @@ public class CitaAdapter implements CitaOut {
                 .map(citaMapper::toCita);
     }
 
+    @Override
+    public List<Cita> getAllCitasByToday() {
+        LocalDateTime hoy = LocalDate.now().atStartOfDay();
+        List<CitaEntity> entidades = citaRepository.findByFechaRegistroAfter(hoy);
+        return entidades.stream()
+                .map(citaMapper::toCita)
+                .collect(Collectors.toList());
+    }
+
+
 
 }

@@ -21,4 +21,7 @@ public interface CitaIn {
 
     Optional<Cita> foundCitaById(Long id);
 
-}
+    List<CitaDto> getAllCitasByToday();
+
+
+    }

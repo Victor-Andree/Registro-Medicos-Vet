@@ -82,4 +82,12 @@ public class CitaUseCase implements CitaIn {
     public Optional<Cita> foundCitaById(Long id){
         return citaOut.foundCitaById(id);
     }
+
+    @Override
+    public List<CitaDto> getAllCitasByToday() {
+        List<Cita> citas = citaOut.getAllCitasByToday();
+        return citas.stream()
+                .map(citaMapper::toCitaDto)
+                .collect(Collectors.toList());
+    }
 }
