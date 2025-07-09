@@ -34,7 +34,7 @@ public class PerfilPersonalController {
         return ResponseEntity.ok(new ResponseBase<>(200, "Perfil creado correctamente", creado.get()));
     }
 
-    @PutMapping("/editarPerfil")
+    @PutMapping("/editarPerfil/{perfilUsuarioId}")
     public ResponseEntity<ResponseBase<PerfilPersonalDto>> actualizarPerfil(@RequestBody PerfilPersonalDto dto) {
         Optional<PerfilPersonalDto> actualizado = perfilPersonalIn.updatePerfil(dto);
         if (actualizado.isEmpty()) {
