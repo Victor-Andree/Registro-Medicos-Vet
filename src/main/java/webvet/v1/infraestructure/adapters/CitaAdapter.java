@@ -2,6 +2,7 @@ package webvet.v1.infraestructure.adapters;
 
 import org.springframework.stereotype.Service;
 import webvet.v1.application.dto.CitaDto;
+import webvet.v1.application.dto.ConsultaMedicaDto;
 import webvet.v1.domain.aggregates.constans.EstadoCita;
 import webvet.v1.domain.aggregates.model.Cita;
 import webvet.v1.domain.ports.output.CitaOut;
@@ -146,6 +147,21 @@ public class CitaAdapter implements CitaOut {
             return citaMapper.toCita(citaRepository.save(entity));
         });
     }
+
+    @Override
+    public List<ConsultaMedicaDto> getConsultasMedicas() {
+        return citaRepository.findAll().stream()
+                .map(cita -> {
+                    ConsultaMedicaDto resumen = new ConsultaMedicaDto();
+
+                    resumen.setNombreMascota(cita.getMascota().getNombre()+""+cita.getMascota().getRaza());
+                    resumen.setNombreDueno(cita.getCliente().getNombre() + " " + cita.getCliente().getApellido());
+
+                    return resumen;
+                })
+                .collect(Collectors.toList());
+    }
+
 
 
 

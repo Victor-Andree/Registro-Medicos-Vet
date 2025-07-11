@@ -1,6 +1,7 @@
 package webvet.v1.domain.ports.output;
 
 import webvet.v1.application.dto.CitaDto;
+import webvet.v1.application.dto.ConsultaMedicaDto;
 import webvet.v1.domain.aggregates.constans.EstadoCita;
 import webvet.v1.domain.aggregates.model.Cita;
 
@@ -26,7 +27,7 @@ public interface CitaOut {
 
     Optional<Cita> updateEstadoCita(Long citaId, EstadoCita nuevoEstado);
 
-
+    List<ConsultaMedicaDto> getConsultasMedicas();
 
 
 }

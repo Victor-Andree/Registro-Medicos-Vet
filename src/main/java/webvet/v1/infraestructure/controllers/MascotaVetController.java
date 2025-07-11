@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import webvet.v1.application.dto.ConsultaMedicaDto;
 import webvet.v1.application.dto.MascotaDto;
 import webvet.v1.application.dto.PacienteVetDto;
 import webvet.v1.application.dto.response.ResponseBase;
+import webvet.v1.domain.ports.input.ConsultaMedicaIn;
 import webvet.v1.domain.ports.input.MascotaIn;
 import webvet.v1.domain.ports.input.MascotaVetIn;
 
@@ -26,16 +28,18 @@ public class MascotaVetController {
 
     private final MascotaVetIn mascotaVetIn;
 
+    private final ConsultaMedicaIn consultaMedicaIn;
 
-    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn) {
+
+    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn) {
         this.mascotaIn = mascotaIn;
         this.mascotaVetIn = mascotaVetIn;
+        this.consultaMedicaIn = consultaMedicaIn;
     }
 
     @GetMapping("/listar")
     public ResponseEntity<ResponseBase<List<MascotaDto>>> listarMascotas() {
         List<MascotaDto> mascotas = mascotaIn.getAllmascotas();
-
         if (mascotas.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .body(new ResponseBase<>(204, "No hay mascotas registradas", Collections.emptyList()));
@@ -54,5 +58,11 @@ public class MascotaVetController {
         }
 
         return ResponseEntity.ok(new ResponseBase<>(200, "Pacientes asignados encontrados", pacientes));
+    }
+
+    @GetMapping("/resumen")
+    public ResponseEntity<ResponseBase<List<ConsultaMedicaDto>>> obtenerResumen() {
+        var data = consultaMedicaIn.listarConsultasResumen();
+        return ResponseEntity.ok(new ResponseBase<>(200, "Consultas médicas encontradas", data));
     }
 }
