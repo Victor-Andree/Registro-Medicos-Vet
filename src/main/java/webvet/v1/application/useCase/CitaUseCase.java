@@ -11,8 +11,6 @@ import webvet.v1.infraestructure.mapper.CitaMapper;
 import webvet.v1.infraestructure.repository.CitaRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
