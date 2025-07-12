@@ -73,4 +73,11 @@ public class CasoClinicoAdapter implements CasoClinicoOut {
                 .map(casoClinicoMapper::toCasoClinico)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<CasoClinico> findById(Long casoClinicoId){
+        return casoClinicoRepository.findById(casoClinicoId)
+                .map(casoClinicoMapper::toCasoClinico);
+
+    }
 }

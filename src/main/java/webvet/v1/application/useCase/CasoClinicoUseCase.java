@@ -62,5 +62,10 @@ public class CasoClinicoUseCase implements CasoClinicoIn {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public  Optional<CasoClinico> findById(Long casoClinicoId){
+       return casoClinicoOut.findById(casoClinicoId);
+    }
+
 
 }

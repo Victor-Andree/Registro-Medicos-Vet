@@ -12,5 +12,7 @@ public interface CasoClinicoIn {
     List<CasoClinicoDto> getAllCasoClinicos();
     Optional<CasoClinicoDto> updateCasoClinico(CasoClinicoDto casoClinicoDto);
     List<CasoClinicoDto> findByMascotaId(Long mascotaId);
+    Optional<CasoClinico> findById(Long casoClinicoId);
+
 
 }
