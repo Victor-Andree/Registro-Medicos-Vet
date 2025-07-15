@@ -132,7 +132,7 @@ public class CitaController {
         return ResponseEntity.ok(new ResponseBase<>(200, "Listado de citas", citasListar));
     }
 
-    @PutMapping("/estado/{id}")
+    @PutMapping("/estado/{id}/{nuevaEstado}")
     public ResponseEntity<ResponseBase<CitaDto>> actualizarEstado(@PathVariable Long id, @RequestParam EstadoCita nuevoEstado) {
         Optional<CitaDto> cita = citaIn.updateEstadoCita(id, nuevoEstado);
         if (cita.isEmpty()) {
