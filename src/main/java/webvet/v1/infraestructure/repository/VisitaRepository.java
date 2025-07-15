@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface VisitaRepository extends JpaRepository<VisitaEntity, Long> {
 
     Optional<VisitaEntity> findById(Long visitaId);
-    List<VisitaEntity> findByTipoVisitaiId_TipopVisitaId(Long tipoVisitaId);
+    List<VisitaEntity> findByTipoVisita_tipoVisitaId(Long tipoVisitaId);
 
 
 

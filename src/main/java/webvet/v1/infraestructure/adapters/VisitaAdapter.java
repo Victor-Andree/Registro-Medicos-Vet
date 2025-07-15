@@ -55,7 +55,7 @@ public class VisitaAdapter implements VisitaOut {
 
     @Override
     public List<Visita> foundVisitaByTipoVisitaId(Long tipoVisitaId){
-        List<VisitaEntity> visitaEntities = visitaRepository.findByTipoVisitaiId_TipopVisitaId(tipoVisitaId);
+        List<VisitaEntity> visitaEntities = visitaRepository.findByTipoVisita_tipoVisitaId(tipoVisitaId);
         return visitaEntities.stream()
                 .map(visitaMapper::toVisita)
                 .collect(Collectors.toList());
