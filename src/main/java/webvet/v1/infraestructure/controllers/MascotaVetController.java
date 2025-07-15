@@ -8,13 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import webvet.v1.application.dto.CitaDto;
 import webvet.v1.application.dto.ConsultaMedicaDto;
 import webvet.v1.application.dto.MascotaDto;
 import webvet.v1.application.dto.PacienteVetDto;
 import webvet.v1.application.dto.response.ResponseBase;
+import webvet.v1.domain.ports.input.CitaIn;
 import webvet.v1.domain.ports.input.ConsultaMedicaIn;
 import webvet.v1.domain.ports.input.MascotaIn;
 import webvet.v1.domain.ports.input.MascotaVetIn;
+import webvet.v1.infraestructure.mapper.CitaMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,11 +33,18 @@ public class MascotaVetController {
 
     private final ConsultaMedicaIn consultaMedicaIn;
 
+    private final CitaIn citaIn;
 
-    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn) {
+    private final CitaMapper citaMapper;
+
+
+
+    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn, CitaIn citaIn, CitaMapper citaMapper) {
         this.mascotaIn = mascotaIn;
         this.mascotaVetIn = mascotaVetIn;
         this.consultaMedicaIn = consultaMedicaIn;
+        this.citaIn = citaIn;
+        this.citaMapper = citaMapper;
     }
 
     @GetMapping("/listar")
@@ -64,5 +74,26 @@ public class MascotaVetController {
     public ResponseEntity<ResponseBase<List<ConsultaMedicaDto>>> obtenerResumen() {
         var data = consultaMedicaIn.listarConsultasResumen();
         return ResponseEntity.ok(new ResponseBase<>(200, "Consultas médicas encontradas", data));
+    }
+
+    @GetMapping("/listarCitas")
+    public ResponseEntity<ResponseBase<List<CitaDto>>> getAllCitas() {
+        List<CitaDto> citas = citaIn.getAllCitas();
+        return ResponseEntity.ok(new ResponseBase<>(200, "Listado de citas", citas));
+    }
+
+    @GetMapping("/Listarcita/{id}")
+    public ResponseEntity<ResponseBase<CitaDto>> obtenerCita(@PathVariable Long id) {
+        return citaIn.foundCitaById(id)
+                .map(cita -> citaMapper.toCitaDto(cita))
+                .map(dto -> ResponseEntity.ok(new ResponseBase<>(200, "Cita encontrada", dto)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseBase<>(404, "Cita no encontrado", null)));
+    }
+
+    @GetMapping("/Listarcitas/hoy")
+    public ResponseEntity<ResponseBase<List<CitaDto>>> getAllCitasByToday() {
+        List<CitaDto> citasListar = citaIn.getAllCitasByToday();
+        return ResponseEntity.ok(new ResponseBase<>(200, "Listado de citas", citasListar));
     }
 }

@@ -56,7 +56,7 @@ public interface VisitaMapper {
             @Mapping(source = "tipoVisita.tipoVisitaId" , target = "tipoVisita"),
 
     })
-    List<VisitaDto> toVisitaDto(List<Visita> visitas);
+    List<VisitaDto> toVisitaDtoList(List<Visita> visitas);
 
 
     @Mappings({

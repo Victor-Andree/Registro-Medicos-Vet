@@ -2,8 +2,10 @@ package webvet.v1.infraestructure.adapters;
 
 
 import org.springframework.stereotype.Service;
+import webvet.v1.application.dto.VisitaDto;
 import webvet.v1.domain.aggregates.model.Visita;
 import webvet.v1.domain.ports.output.VisitaOut;
+import webvet.v1.infraestructure.entity.CitaEntity;
 import webvet.v1.infraestructure.entity.VisitaEntity;
 import webvet.v1.infraestructure.mapper.VisitaMapper;
 import webvet.v1.infraestructure.repository.VisitaRepository;
@@ -43,7 +45,23 @@ public class VisitaAdapter implements VisitaOut {
         return visitaEntities.stream().
                 map(visitaMapper::toVisita)
                 .collect(Collectors.toList());
-}
+    }
+
+    @Override
+    public Optional<Visita> foundVisitaById(Long visitaId){
+        return visitaRepository.findById(visitaId)
+                .map(visitaMapper::toVisita);
+    }
+
+    @Override
+    public List<Visita> foundVisitaByTipoVisitaId(Long tipoVisitaId){
+        List<VisitaEntity> visitaEntities = visitaRepository.findByTipoVisitaiId_TipopVisitaId(tipoVisitaId);
+        return visitaEntities.stream()
+                .map(visitaMapper::toVisita)
+                .collect(Collectors.toList());
+    }
+
+
 
 
 }

@@ -11,6 +11,9 @@ public interface VisitaIn {
 
     Optional<VisitaDto> createVisita(VisitaDto visitaDto);
     List<VisitaDto> getAllVisitas();
+    Optional<Visita> foundVisitaById(Long visitaId);
+    List<VisitaDto> foundVisitaByTipoVisitaId(Long tipoVisitaId);
+
 
 
 }

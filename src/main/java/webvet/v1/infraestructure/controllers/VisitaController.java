@@ -6,9 +6,11 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import webvet.v1.application.dto.CitaDto;
 import webvet.v1.application.dto.VisitaDto;
 import webvet.v1.application.dto.response.ResponseBase;
 import webvet.v1.domain.ports.input.VisitaIn;
+import webvet.v1.infraestructure.mapper.VisitaMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,9 +23,12 @@ public class VisitaController {
 
     private final VisitaIn visitaIn;
 
+    private final VisitaMapper visitaMapper;
 
-    public VisitaController(VisitaIn visitaIn) {
+
+    public VisitaController(VisitaIn visitaIn, VisitaMapper visitaMapper) {
         this.visitaIn = visitaIn;
+        this.visitaMapper = visitaMapper;
     }
 
     @PostMapping("/crearVisita")
@@ -57,6 +62,28 @@ public class VisitaController {
 
         return ResponseEntity.ok(new ResponseBase<>(200, "Las Visitas se obtuvieron", visitaDtos));
 
+
+    }
+
+    @GetMapping("/visita/{id}")
+    public ResponseEntity<ResponseBase<VisitaDto>> obtenerVisita(@PathVariable Long visitaId) {
+        return visitaIn.foundVisitaById(visitaId)
+                .map(visita -> visitaMapper.toVisitaDto(visita))
+                .map(dto -> ResponseEntity.ok(new ResponseBase<>(200, "Visita encontrada", dto)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseBase<>(404, "Visita no encontrado", null)));
+    }
+
+    @GetMapping("/visita/tipoVisita/{tipoVisitaId}")
+    public ResponseEntity<ResponseBase<List<VisitaDto>>> getVisitaByTipoVisitaId(@PathVariable Long tipoVisitaId) {
+        List<VisitaDto> visitaDtos = visitaIn.foundVisitaByTipoVisitaId(tipoVisitaId);
+
+        if (visitaDtos.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Visitas no encontrada", visitaDtos));
+
+        }
+        return ResponseEntity.ok(new ResponseBase<>(200, "Visitas con el tipo de visita obtenidas correctamente", visitaDtos));
 
     }
 

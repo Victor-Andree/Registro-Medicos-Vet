@@ -3,6 +3,7 @@ package webvet.v1.application.useCase;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import webvet.v1.application.dto.VisitaDto;
+import webvet.v1.domain.aggregates.model.Cita;
 import webvet.v1.domain.aggregates.model.Visita;
 import webvet.v1.domain.ports.input.VisitaIn;
 import webvet.v1.domain.ports.output.VisitaOut;
@@ -11,6 +12,7 @@ import webvet.v1.infraestructure.repository.VisitaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VisitaUseCase implements VisitaIn {
@@ -46,7 +48,21 @@ public class VisitaUseCase implements VisitaIn {
             throw new EntityNotFoundException("No visita encontrada");
         }
 
-        return visitaMapper.toVisitaDto(visitas);
+        return visitaMapper.toVisitaDtoList(visitas);
 
     }
+
+    @Override
+    public Optional<Visita> foundVisitaById(Long visitaId){
+        return visitaOut.foundVisitaById(visitaId);
+    }
+
+    @Override
+    public List<VisitaDto> foundVisitaByTipoVisitaId(Long tipoVisitaId){
+        List<Visita> visitas = visitaOut.foundVisitaByTipoVisitaId(tipoVisitaId);
+        return visitas.stream()
+                .map(visitaMapper::toVisitaDto)
+                .collect(Collectors.toList());
+    }
+
 }
