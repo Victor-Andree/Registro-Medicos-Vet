@@ -5,17 +5,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import webvet.v1.application.dto.CitaDto;
-import webvet.v1.application.dto.ConsultaMedicaDto;
-import webvet.v1.application.dto.MascotaDto;
-import webvet.v1.application.dto.PacienteVetDto;
+import webvet.v1.application.dto.*;
 import webvet.v1.application.dto.response.ResponseBase;
 import webvet.v1.domain.aggregates.constans.EstadoCita;
-import webvet.v1.domain.ports.input.CitaIn;
-import webvet.v1.domain.ports.input.ConsultaMedicaIn;
-import webvet.v1.domain.ports.input.MascotaIn;
-import webvet.v1.domain.ports.input.MascotaVetIn;
+import webvet.v1.domain.ports.input.*;
 import webvet.v1.infraestructure.mapper.CitaMapper;
+import webvet.v1.infraestructure.mapper.ClienteMapper;
+import webvet.v1.infraestructure.mapper.MascotaMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,16 +30,25 @@ public class MascotaVetController {
 
     private final CitaIn citaIn;
 
+    private final ClienteIn clientesIn;
+
     private final CitaMapper citaMapper;
 
+    private final MascotaMapper mascotaMapper;
+
+    private final ClienteMapper clienteMapper;
 
 
-    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn, CitaIn citaIn, CitaMapper citaMapper) {
+
+    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn, CitaIn citaIn, ClienteIn clienteIn, CitaMapper citaMapper, MascotaMapper mascotaMapper, ClienteMapper clienteMapper) {
         this.mascotaIn = mascotaIn;
         this.mascotaVetIn = mascotaVetIn;
         this.consultaMedicaIn = consultaMedicaIn;
         this.citaIn = citaIn;
+        this.clientesIn = clienteIn;
         this.citaMapper = citaMapper;
+        this.mascotaMapper = mascotaMapper;
+        this.clienteMapper = clienteMapper;
     }
 
     @GetMapping("/listar")
@@ -108,4 +113,35 @@ public class MascotaVetController {
                 new ResponseBase<>(200, "Estado de la cita actualizado exitosamente", cita.get())
         );
     }
+
+    @GetMapping("/buscar/mascota/ByclienteId/{clienteId}")
+    public ResponseEntity<ResponseBase<List<MascotaDto>>> obtenerMascotasPorCliente(@PathVariable Long clienteId) {
+        List<MascotaDto> mascotas = mascotaIn.findMascotaByCliente(clienteId);
+
+        if (mascotas.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "El cliente no tiene mascotas registradas", Collections.emptyList()));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Mascotas del cliente obtenidas correctamente", mascotas));
+    }
+
+    @GetMapping("/buscar/mascotabyId/{id}")
+    public ResponseEntity<ResponseBase<MascotaDto>> obternerMascota(@PathVariable Long id) {
+        return mascotaIn.findMascotabyid(id)
+                .map(mascota -> mascotaMapper.toMascotaDto(mascota))
+                .map(dto -> ResponseEntity.ok(new ResponseBase<>(200, "mascota encontrada", dto)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseBase<>(404, "mascota no encontrada", null)));
+    }
+
+    @GetMapping("/buscar/clienteById/{id}")
+    public ResponseEntity<ResponseBase<ClienteDto>> obtenerCliente(@PathVariable Long id) {
+        return clientesIn.obtenerClientePorId(id)
+                .map(cliente -> clienteMapper.toClienteDto(cliente))
+                .map(dto -> ResponseEntity.ok(new ResponseBase<>(200, "Cliente encontrado", dto)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseBase<>(404, "Cliente no encontrado", null)));
+    }
+
 }
