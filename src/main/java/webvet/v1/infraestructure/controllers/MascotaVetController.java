@@ -32,6 +32,10 @@ public class MascotaVetController {
 
     private final ClienteIn clientesIn;
 
+    private final RazaIn razaIn;
+
+    private final EspecieIn especieIn;
+
     private final CitaMapper citaMapper;
 
     private final MascotaMapper mascotaMapper;
@@ -40,12 +44,14 @@ public class MascotaVetController {
 
 
 
-    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn, CitaIn citaIn, ClienteIn clienteIn, CitaMapper citaMapper, MascotaMapper mascotaMapper, ClienteMapper clienteMapper) {
+    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn, CitaIn citaIn, ClienteIn clienteIn, RazaIn razaIn, EspecieIn especieIn, CitaMapper citaMapper, MascotaMapper mascotaMapper, ClienteMapper clienteMapper) {
         this.mascotaIn = mascotaIn;
         this.mascotaVetIn = mascotaVetIn;
         this.consultaMedicaIn = consultaMedicaIn;
         this.citaIn = citaIn;
         this.clientesIn = clienteIn;
+        this.razaIn = razaIn;
+        this.especieIn = especieIn;
         this.citaMapper = citaMapper;
         this.mascotaMapper = mascotaMapper;
         this.clienteMapper = clienteMapper;
@@ -142,6 +148,34 @@ public class MascotaVetController {
                 .map(dto -> ResponseEntity.ok(new ResponseBase<>(200, "Cliente encontrado", dto)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ResponseBase<>(404, "Cliente no encontrado", null)));
+    }
+
+    @GetMapping("/listarEspeciesVet")
+    public ResponseEntity<ResponseBase<List<EspecieDto>>>getAllespecies(){
+        List<EspecieDto> especies = especieIn.getAllEspecies();
+
+        if (especies.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ResponseBase<>(204, " No existen especies registradas", Collections.emptyList()));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Las especies se obtuvieron", especies));
+
+
+    }
+
+    @GetMapping("/listarRazasVet")
+    public ResponseEntity<ResponseBase<List<RazaDto>>>geAllRazas(){
+        List<RazaDto> razas = razaIn.getAllRazas();
+
+        if (razas.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ResponseBase<>(204, " No existen razas registradas", Collections.emptyList()));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Las razas se obtuvieron", razas));
+
+
     }
 
 }
