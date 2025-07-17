@@ -4,15 +4,13 @@ package webvet.v1.infraestructure.controllers;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import webvet.v1.application.dto.CitaDto;
 import webvet.v1.application.dto.ConsultaMedicaDto;
 import webvet.v1.application.dto.MascotaDto;
 import webvet.v1.application.dto.PacienteVetDto;
 import webvet.v1.application.dto.response.ResponseBase;
+import webvet.v1.domain.aggregates.constans.EstadoCita;
 import webvet.v1.domain.ports.input.CitaIn;
 import webvet.v1.domain.ports.input.ConsultaMedicaIn;
 import webvet.v1.domain.ports.input.MascotaIn;
@@ -21,6 +19,7 @@ import webvet.v1.infraestructure.mapper.CitaMapper;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/vet/")
@@ -95,5 +94,18 @@ public class MascotaVetController {
     public ResponseEntity<ResponseBase<List<CitaDto>>> getAllCitasByToday() {
         List<CitaDto> citasListar = citaIn.getAllCitasByToday();
         return ResponseEntity.ok(new ResponseBase<>(200, "Listado de citas", citasListar));
+    }
+
+    @PutMapping("/estadoCita/{id}/{nuevaEstado}")
+    public ResponseEntity<ResponseBase<CitaDto>> actualizarEstado(@PathVariable Long id, @RequestParam EstadoCita nuevoEstado) {
+        Optional<CitaDto> cita = citaIn.updateEstadoCita(id, nuevoEstado);
+        if (cita.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Cita no encontrada", null));
+        }
+
+        return ResponseEntity.ok(
+                new ResponseBase<>(200, "Estado de la cita actualizado exitosamente", cita.get())
+        );
     }
 }
