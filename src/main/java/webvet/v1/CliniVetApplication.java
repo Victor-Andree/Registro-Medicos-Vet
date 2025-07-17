@@ -18,15 +18,6 @@ public class CliniVetApplication {
 		System.out.println("API SUSSCEFULL");
 
 
-
-		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		String rawPassword = "admin123"; // Puedes cambiar esta contraseña base
-		String encodedPassword = encoder.encode(rawPassword);
-
-		System.out.println("Contraseña original: " + rawPassword);
-		System.out.println("Contraseña codificada: " + encodedPassword);
-
-
 	}
 
 	@EventListener(ApplicationReadyEvent.class)
