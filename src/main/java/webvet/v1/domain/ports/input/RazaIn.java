@@ -10,4 +10,7 @@ public interface RazaIn {
     Optional<RazaDto> createRaza (RazaDto raza);
 
     List<RazaDto> getAllRazas();
+
+    boolean deleteRaza(Long razaId);
+
 }

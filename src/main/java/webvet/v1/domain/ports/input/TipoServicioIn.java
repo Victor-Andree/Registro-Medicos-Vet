@@ -8,6 +8,7 @@ public interface TipoServicioIn {
 
     Optional<TipoServicioDto> createTiposServicio(TipoServicioDto tipoServicioDto);
     List<TipoServicioDto> getAllTiposServicios();
+    boolean deleteTipoServicio(Long tipoServicioId);
 
 
 }

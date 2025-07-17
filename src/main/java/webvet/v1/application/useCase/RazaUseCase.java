@@ -52,4 +52,10 @@ public class RazaUseCase implements RazaIn {
         return razaMapper.toRazaDto(razas);
 
     }
+
+    @Override
+    public boolean deleteRaza(Long razaId){
+        return razaOut.deleteRaza(razaId);
+    }
+
 }

@@ -58,4 +58,17 @@ public class RazaController {
 
 
     }
+
+    @DeleteMapping("/eliminarRaza/{id}")
+    public ResponseEntity<ResponseBase<Object>> eliminarRaza(@PathVariable Long id) {
+        boolean eliminado = razaIn.deleteRaza(id);
+
+        if (eliminado) {
+            return ResponseEntity.ok(new ResponseBase<>(200, "Raza eliminada con éxito", null));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Raza no encontrada", null));
+        }
+    }
+
 }

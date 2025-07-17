@@ -43,4 +43,14 @@ public class RazaAdapter implements RazaOut {
                 .collect(Collectors.toList());
 
     }
+
+    @Override
+    public  boolean deleteRaza(Long razaId){
+        if (razaRepository.existsById(razaId)){
+            razaRepository.deleteById(razaId);
+        }
+
+        return false;
+    }
+
 }

@@ -49,4 +49,9 @@ public class TipoServicioUseCase implements TipoServicioIn {
         return tipoServicioMapper.toTipoServicioDto(tipoServicios);
 
     }
+
+    @Override
+    public boolean deleteTipoServicio(Long tipoServicioId){
+        return tipoServicioOut.deleteTipoServicio(tipoServicioId);
+    }
 }

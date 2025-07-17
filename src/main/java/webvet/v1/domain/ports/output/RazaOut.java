@@ -11,5 +11,8 @@ public interface RazaOut {
 
     List<Raza> getAllRazas();
 
+    boolean deleteRaza(Long razaId);
+
+
 
 }

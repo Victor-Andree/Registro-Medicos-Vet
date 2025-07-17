@@ -50,4 +50,9 @@ public class EspecieUseCase implements EspecieIn {
         return especieMapper.toEspecieDto(especies);
 
     }
+
+    @Override
+    public boolean deleteEspecie(Long especieId){
+        return especieOut.deleteEspecie(especieId);
+    }
 }

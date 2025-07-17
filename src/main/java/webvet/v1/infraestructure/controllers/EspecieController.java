@@ -59,6 +59,18 @@ public class EspecieController {
 
     }
 
+    @DeleteMapping("/eliminarEspecie/{id}")
+    public ResponseEntity<ResponseBase<Object>> eliminarEspecie(@PathVariable Long id) {
+        boolean eliminado = especieIn.deleteEspecie(id);
+
+        if (eliminado) {
+            return ResponseEntity.ok(new ResponseBase<>(200, "Especie eliminada con éxito", null));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Especie no encontrada", null));
+        }
+    }
+
 
 
 

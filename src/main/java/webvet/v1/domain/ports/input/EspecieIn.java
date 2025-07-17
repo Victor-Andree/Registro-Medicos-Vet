@@ -11,5 +11,8 @@ public interface EspecieIn {
 
     List<EspecieDto> getAllEspecies();
 
+    boolean deleteEspecie(Long especieId);
+
+
 
 }

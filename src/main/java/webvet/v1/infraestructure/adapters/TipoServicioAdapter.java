@@ -44,4 +44,13 @@ public class TipoServicioAdapter implements TipoServicioOut {
 
 
     }
+
+    @Override
+    public boolean deleteTipoServicio(Long tipoServicioId){
+        if (tipoServicioRepository.existsById(tipoServicioId)){
+            tipoServicioRepository.deleteById(tipoServicioId);
+        }
+
+        return false;
+    }
 }

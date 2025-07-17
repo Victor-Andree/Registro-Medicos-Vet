@@ -60,4 +60,17 @@ public class TipoServicioController {
     }
 
 
+    @DeleteMapping("/eliminarTipoServicio/{id}")
+    public ResponseEntity<ResponseBase<Object>> eliminarTipoServicio(@PathVariable Long id) {
+        boolean eliminado = tipoServicioIn.deleteTipoServicio(id);
+
+        if (eliminado) {
+            return ResponseEntity.ok(new ResponseBase<>(200, "Tipo de Servicio eliminada con éxito", null));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Tipo de Servicio no encontrada", null));
+        }
+    }
+
+
 }

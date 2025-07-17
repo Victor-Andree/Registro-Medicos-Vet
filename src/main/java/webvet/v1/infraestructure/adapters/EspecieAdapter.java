@@ -43,4 +43,13 @@ public class EspecieAdapter implements EspecieOut {
                 .collect(Collectors.toList());
 
     }
+
+    @Override
+    public  boolean deleteEspecie(Long especieId){
+        if (especieRepository.existsById(especieId)){
+            especieRepository.deleteById(especieId);
+        }
+
+        return false;
+    }
 }
