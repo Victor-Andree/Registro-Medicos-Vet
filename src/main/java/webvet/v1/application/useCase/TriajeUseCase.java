@@ -62,4 +62,11 @@ public class TriajeUseCase implements TriajeIn {
         return triajeActualizado.map(triajeMapper::toTriajeDto);
     }
 
+    @Override
+    public Optional<TriajeDto> updateTriajeByMascotaId(Long mascotaId) {
+        return triajeOut.updateTriajeByMascotaId(mascotaId)
+                .map(triajeMapper::toTriajeDto);
+    }
+
+
 }

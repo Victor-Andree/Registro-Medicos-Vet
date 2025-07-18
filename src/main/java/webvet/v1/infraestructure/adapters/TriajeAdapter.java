@@ -8,6 +8,8 @@ import webvet.v1.infraestructure.mapper.TriajeMapper;
 import webvet.v1.infraestructure.repository.MascotaRepository;
 import webvet.v1.infraestructure.repository.TriajeRepository;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,6 +63,19 @@ public class TriajeAdapter implements TriajeOut {
                     return triajeMapper.toTriaje(updateEntity);
 
 
+                });
+    }
+
+    @Override
+    public Optional<Triaje> updateTriajeByMascotaId(Long mascotaId) {
+        return triajeRepository.findTopByMascota_MascotaIdOrderByFechaRegistroDesc(mascotaId)
+                .map(entity -> {
+                    // Aquí va la lógica de actualización automática:
+                    entity.setFechaRegistro(LocalDateTime.now(ZoneId.of("America/Lima")));
+                    // Puedes actualizar otros campos si aplica
+
+                    TriajeEntity actualizado = triajeRepository.save(entity);
+                    return triajeMapper.toTriaje(actualizado);
                 });
     }
 

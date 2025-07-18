@@ -36,6 +36,8 @@ public class MascotaVetController {
 
     private final EspecieIn especieIn;
 
+    private final TriajeIn triajeIn;
+
     private final CitaMapper citaMapper;
 
     private final MascotaMapper mascotaMapper;
@@ -44,7 +46,7 @@ public class MascotaVetController {
 
 
 
-    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn, CitaIn citaIn, ClienteIn clienteIn, RazaIn razaIn, EspecieIn especieIn, CitaMapper citaMapper, MascotaMapper mascotaMapper, ClienteMapper clienteMapper) {
+    public MascotaVetController(MascotaIn mascotaIn, MascotaVetIn mascotaVetIn, ConsultaMedicaIn consultaMedicaIn, CitaIn citaIn, ClienteIn clienteIn, RazaIn razaIn, EspecieIn especieIn, TriajeIn triajeIn, CitaMapper citaMapper, MascotaMapper mascotaMapper, ClienteMapper clienteMapper) {
         this.mascotaIn = mascotaIn;
         this.mascotaVetIn = mascotaVetIn;
         this.consultaMedicaIn = consultaMedicaIn;
@@ -52,6 +54,7 @@ public class MascotaVetController {
         this.clientesIn = clienteIn;
         this.razaIn = razaIn;
         this.especieIn = especieIn;
+        this.triajeIn = triajeIn;
         this.citaMapper = citaMapper;
         this.mascotaMapper = mascotaMapper;
         this.clienteMapper = clienteMapper;
@@ -176,6 +179,28 @@ public class MascotaVetController {
         return ResponseEntity.ok(new ResponseBase<>(200, "Las razas se obtuvieron", razas));
 
 
+    }
+
+    @GetMapping("/Listartriaje/mascota/{mascotaId}")
+    public ResponseEntity<ResponseBase<List<TriajeDto>>> findMascotaById(@PathVariable Long mascotaId) {
+        List<TriajeDto> triajes = triajeIn.findTriajeByMascota(mascotaId);
+
+        if (triajes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "La mascita no tiene triaje registrado", Collections.emptyList()));
+        }
+
+        return ResponseEntity.ok(new ResponseBase<>(200, "Triaje de la mascota obtenidas correctamente", triajes));
+    }
+
+    @PutMapping("/triaje/actualizar-triaje/{mascotaId}")
+    public ResponseEntity<ResponseBase<TriajeDto>> updateUltimoTriajePorMascota(@PathVariable Long mascotaId) {
+        return triajeIn.updateTriajeByMascotaId(mascotaId)
+                .map(triajeDto -> new ResponseEntity<>(
+                        new ResponseBase<>(200, "Último triaje de la mascota actualizado correctamente", triajeDto),
+                        HttpStatus.OK))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseBase<>(404, "No se encontró un triaje previo para esta mascota", null)));
     }
 
 }

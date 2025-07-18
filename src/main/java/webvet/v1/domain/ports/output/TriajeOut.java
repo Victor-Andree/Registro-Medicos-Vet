@@ -14,4 +14,7 @@ public interface TriajeOut {
 
     Optional<Triaje> updateTriaje (Triaje triaje);
 
+    Optional<Triaje> updateTriajeByMascotaId(Long mascotaId);
+
+
 }
