@@ -51,5 +51,18 @@ public class VeterinarioAdapter implements VeterinarioOut {
 
     }
 
+    @Override
+    public Optional<Veterinario> updateDni (Long veterinarioId, String dni){
+        Optional<VeterinarioEntity> optionalVet = veterinarioRepository.findById(veterinarioId);
+        if (optionalVet.isEmpty()) return Optional.empty();
+
+        VeterinarioEntity entity = optionalVet.get();
+        entity.setDni(dni);
+
+        VeterinarioEntity updated = veterinarioRepository.save(entity);
+        return Optional.of(veterinarioMapper.toVeterinario(updated));
+
+    }
+
 
 }

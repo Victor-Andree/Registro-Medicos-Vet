@@ -68,4 +68,16 @@ public class VeterinarioController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ResponseBase<>(404, "Veterinario con apellido"+ apellido + "no encontrado", null )));
     }
+
+    @PutMapping("/editardni/{id}")
+    public ResponseEntity<ResponseBase<VeterinarioDto>> actualizarDni(@PathVariable Long veterinarioid, @RequestParam String dni) {
+        Optional<VeterinarioDto> actualizado = veterinarioIn.updateDni(veterinarioid, dni);
+
+        if (actualizado.isPresent()) {
+            return ResponseEntity.ok(new ResponseBase<>(200, "DNI actualizado correctamente", actualizado.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseBase<>(404, "Veterinario no encontrado", null));
+        }
+    }
 }

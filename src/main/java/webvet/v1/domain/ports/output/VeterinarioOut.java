@@ -1,5 +1,6 @@
 package webvet.v1.domain.ports.output;
 
+import webvet.v1.domain.aggregates.model.Cliente;
 import webvet.v1.domain.aggregates.model.Veterinario;
 import webvet.v1.infraestructure.entity.VeterinarioEntity;
 
@@ -13,6 +14,9 @@ public interface VeterinarioOut {
     List<Veterinario> getAllVeterinarios();
 
     Optional<VeterinarioEntity> getVeterinarioByApellido(String apellido);
+
+    Optional<Veterinario> updateDni (Long veterinarioId, String dni);
+
 
 
 }

@@ -8,4 +8,9 @@ import java.util.Optional;
 public interface VeterinarioRepository extends JpaRepository<VeterinarioEntity, Long> {
 
     Optional<VeterinarioEntity> findByApellido(String apellido);
+
+    Optional<VeterinarioEntity> findByDni(String dni);
+
+
+
 }

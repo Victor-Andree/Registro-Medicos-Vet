@@ -52,6 +52,14 @@ public class VeterinarioUseCase implements VeterinarioIn {
                 .map(veterinarioMapper::toVeterinarioDtoFromEntity);
     }
 
+    @Override
+    public  Optional<VeterinarioDto> updateDni (Long veterinarioId,String dni){
+        return veterinarioOut.updateDni(veterinarioId, dni)
+                .map(veterinarioMapper::toVeterinarioDto);
+
+
+    }
+
 
 
 }

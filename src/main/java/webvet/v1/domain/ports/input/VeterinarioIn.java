@@ -15,5 +15,8 @@ public interface VeterinarioIn {
 
     Optional<VeterinarioDto> getVeterinarioByApellido(String apellido);
 
+    Optional<VeterinarioDto> updateDni (Long veterinarioId, String dni);
+
+
 
 }
